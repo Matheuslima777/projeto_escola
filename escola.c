@@ -9,8 +9,8 @@
 #define MATRICULA_INEXISTENTE -5
 #define EXCLUSAO_ALUNO_SUCESSO -6
 
-//apenas um comentario
-//outro comentario
+//mudança de planos
+
 
 typedef struct alu
 {
