@@ -10,6 +10,7 @@
 #define EXCLUSAO_ALUNO_SUCESSO -6
 
 //apenas um comentario
+//outro comentario
 
 typedef struct alu
 {
