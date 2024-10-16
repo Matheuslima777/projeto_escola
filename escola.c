@@ -9,6 +9,8 @@
 #define MATRICULA_INEXISTENTE -5
 #define EXCLUSAO_ALUNO_SUCESSO -6
 
+//apenas um comentario
+
 typedef struct alu
 {
     int matricula;
