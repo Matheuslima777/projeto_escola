@@ -9,7 +9,7 @@
 #define MATRICULA_INEXISTENTE -5
 #define EXCLUSAO_ALUNO_SUCESSO -6
 
-//mudança de planos
+//mudando denovo
 
 
 typedef struct alu
