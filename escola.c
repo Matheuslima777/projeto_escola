@@ -9,7 +9,8 @@
 #define MATRICULA_INEXISTENTE -5
 #define EXCLUSAO_ALUNO_SUCESSO -6
 
-//mudando denovo
+//mudando denovo para o segundo commit
+
 
 
 typedef struct alu
