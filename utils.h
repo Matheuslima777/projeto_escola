@@ -1,5 +1,5 @@
-
-
+#ifndef MINHAFUNCAO_H
+#define MINHAFUNCAO_H
 
 #define TAM_ALUNO 3
 #define CAD_ALUNO_SUCESSO -1
@@ -17,3 +17,15 @@ typedef struct alu
     char sexo;
     int ativo;
 }Aluno;
+
+
+//prototipos das funções
+int menuGeral();
+int menuAluno();   
+int cadastrarAluno(int qtdAluno, Aluno listarAluno[]);
+void listarAlunos(int qtdAluno, Aluno listarAluno[]);
+int atualizarAluno(int qtdAluno, Aluno listarAluno[]);
+int excluirAluno(int qtdAluno, Aluno listarAluno[]);
+void listarAlunos(int qtdAluno, Aluno listarAluno[]);
+
+#endif // MINHAFUNCAO_H
