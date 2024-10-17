@@ -1,6 +1,9 @@
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 #include <stdio.h>
 #include "utils.h"
+
 
 
 
@@ -8,12 +11,7 @@
 
 
 
-typedef struct alu
-{
-    int matricula;
-    char sexo;
-    int ativo;
-}Aluno;
+
 
 //prototipos das funções
 int menuGeral();
@@ -60,6 +58,8 @@ int main(void){
                         printf("LISTA DE ALUNOS CHEIA\n");
                         }else if(retorno==MATRICULA_INVALIDA){
                             printf("MATRICULA INVALIDA\n");
+                        }else if(retorno==SEXO_INVALIDO){
+                            printf("SEXO INVALIDO\n");
                         }else{
                             printf("CADASTRADO COM SUCESSO!\n");
                             qtdAluno++;
@@ -162,19 +162,38 @@ int menuGeral(){
                         return LISTA_CHEIA;
                     }else{
                             int matricula;
+                            char nome[20];
+                            char sexo;
+
+                            printf("DIGITE SEU NOME:\n");
+                            getchar();
+                            fgets(nome,sizeof(nome),stdin);
+
                             printf("DIGITE A MATRICULA:\n");
                             scanf("%d", &matricula);
+
+                            printf("DIGITE O SEXO (M/F):\n");
+                            scanf(" %c", &sexo);
+
+                           
+                           
+                           sexo = toupper(sexo);
                             if(matricula<0){
                                 return MATRICULA_INVALIDA;
                             }else{
+                                    if(sexo=='F' || sexo=='M'){
+                                    strcpy(listarAluno[qtdAluno].nome, nome);
+                                    listarAluno[qtdAluno].sexo = sexo;
                                     listarAluno[qtdAluno].matricula = matricula;
                                     listarAluno[qtdAluno].ativo = 1;
                                     return CAD_ALUNO_SUCESSO;
-                                }
+                                    }else{
+                                        return SEXO_INVALIDO;
+                                    }
+                                
+                            }
+                        }
                     }
-
-                    
-        }
 
     void listarAlunos(int qtdAluno, Aluno listarAluno[]){
         if(qtdAluno==0){
@@ -182,7 +201,7 @@ int menuGeral(){
                         }else{
                             for(int i=0; i<qtdAluno; i++){
                                 if(listarAluno[i].ativo==1)
-                                    printf("%d\n", listarAluno[i].matricula); 
+                                    printf(" aluno %d  nome:%s matricula: %d  sexo: %c\n", i,listarAluno[i].nome, listarAluno[i].matricula,listarAluno[i].sexo); 
                             
                             }
                         }
@@ -262,3 +281,4 @@ int menuGeral(){
                 }
             }
     
+
