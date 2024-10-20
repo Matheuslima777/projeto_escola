@@ -66,7 +66,6 @@
                              // Verificar se o CPF já está cadastrado
                             for (i = 0; i < qtdAluno; i++) {
                                 if (strcmp(listarAluno[i].cpf, cpf) == 0) {
-                                    printf("Erro: CPF já cadastrado!\n");
                                     return CPF_CADASTRADO;
                                 }
                             }

@@ -45,8 +45,8 @@ int main(void){
                         }else if(retorno==SEXO_INVALIDO){
                             printf("SEXO INVALIDO\n");
                         }else if(retorno==CPF_CADASTRADO){
-                            printf("CPF JA CADASTRADO");
-                        }{
+                            printf("CPF JA CADASTRADO\n");
+                        }else{
                             printf("CADASTRADO COM SUCESSO!\n");
                             qtdAluno++;
                         }
