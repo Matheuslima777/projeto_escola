@@ -29,7 +29,7 @@
     int cadastrarAluno(int qtdAluno, Aluno listarAluno[]){
                 printf("CADASTRAR ALUNO\n");
                     if(qtdAluno==TAM_ALUNO){
-                        return LISTA_CHEIA;
+                        return LISTA_ALUNO_CHEIA;
                     }else{
                             int matricula;
                             char cpf[15];
@@ -68,7 +68,7 @@
                              // Verificar se o CPF já está cadastrado
                             for (i = 0; i < qtdAluno; i++) {
                                 if (strcmp(listarAluno[i].cpf, cpf) == 0) {
-                                    return CPF_JA_CADASTRADO;
+                                    return CPF_ALUNO_JA_CADASTRADO;
                                 }
                             }
 
@@ -85,7 +85,7 @@
                             idade = anoAtual - anoNascimento;
 
                             if(matricula<0){
-                                return MATRICULA_INVALIDA;
+                                return MATRICULA_ALUNO_INVALIDA;
                             }else{
                                     if(sexo=='F' || sexo=='M'){
 
@@ -119,14 +119,14 @@
                                         
                                         return CAD_ALUNO_SUCESSO;
                                     }else{
-                                        return SEXO_INVALIDO;
+                                        return SEXO_ALUNO_INVALIDO;
                                     }
                                 
                             }
                         }
                     }
 
-    void listarAlunos(int qtdAluno, Aluno listarAluno[]){
+    void listarrAlunos(int qtdAluno, Aluno listarAluno[]){
         if(qtdAluno==0){
                         printf("LISTA DE ALUNO VAZIA\n");
                         }else{
@@ -150,15 +150,12 @@
     int atualizarAluno(int qtdAluno, Aluno listarAluno[]){
     printf("ATUALIZAR ALUNO\n");
                         int matricula;
-                        char cpf[15];
-                        char nome[20];
-                        char sexo;
 
                         printf("DIGITE A MATRICULA:\n");
                         scanf("%d", &matricula);
                         int achou = 0;
                         if(matricula<0){
-                            return MATRICULA_INVALIDA;
+                            return MATRICULA_ALUNO_INVALIDA;
                         }else{
                         for(int i=0; i<qtdAluno; i++){
                             if (matricula==listarAluno[i].matricula&&listarAluno[i].ativo){
@@ -188,7 +185,7 @@
                                 scanf(" %c", &newSexo);
 
                                  if(novaMatricula<0){
-                            return MATRICULA_INVALIDA;
+                            return MATRICULA_ALUNO_INVALIDA;
                         }
                                 listarAluno[i].matricula=novaMatricula;
                                 strcpy(listarAluno[i].nome,novoNome);
@@ -204,7 +201,7 @@
                             return ATUALIZADO_ALUNO_SUCESSO;
                             
                         }else{
-                            return MATRICULA_INEXISTENTE;
+                            return MATRICULA_ALUNO_INEXISTENTE;
                            
                         }
     
@@ -218,7 +215,7 @@
         scanf("%d", &matricula);
         int achou = 0;
             if(matricula<0){
-                return MATRICULA_INVALIDA;
+                return MATRICULA_ALUNO_INVALIDA;
             }else{
                 for(int i=0; i<qtdAluno; i++){ 
                     if (matricula==listarAluno[i].matricula){
@@ -255,7 +252,7 @@
                             return EXCLUSAO_ALUNO_SUCESSO;
                             
                         }else{
-                                return MATRICULA_INEXISTENTE;
+                                return MATRICULA_ALUNO_INEXISTENTE;
                            
                         }
                             
