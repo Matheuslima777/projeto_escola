@@ -9,10 +9,15 @@
 #define MATRICULA_INEXISTENTE -5
 #define EXCLUSAO_ALUNO_SUCESSO -6
 #define SEXO_INVALIDO -7
+#define MATRICULA_INDISPONIVEL -8
+#define CPF_CADASTRADO -9
+
 
 typedef struct alu
 {
     int matricula;
+    char cpf[15];
+    char dataNascimento[12];
     char nome[20];
     char sexo;
     int ativo;

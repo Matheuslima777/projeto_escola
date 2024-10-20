@@ -1,6 +1,7 @@
 #include "utils.h"
 #include <stdio.h>
 
+
  int menuAluno(){
         int opcao;
         printf("0-VOLTAR\n");   
@@ -31,22 +32,53 @@
                         return LISTA_CHEIA;
                     }else{
                             int matricula;
+                            char cpf[15];
+                            char dataNascimento[12];
                             char nome[20];
                             char sexo;
+                            int i;
 
                             printf("DIGITE SEU NOME:\n");
                             getchar();
                             fgets(nome,sizeof(nome),stdin);
+
+                             // Remover a nova linha ao final da string nome, se presente
+                             size_t len = strlen(nome);
+                             if (len > 0 && nome[len - 1] == '\n') {
+                                    nome[len - 1] = '\0';
+                                 }
 
                             printf("DIGITE A MATRICULA:\n");
                             scanf("%d", &matricula);
 
                             printf("DIGITE O SEXO (M/F):\n");
                             scanf(" %c", &sexo);
+                            sexo = toupper(sexo);
 
-                           
-                           
-                           sexo = toupper(sexo);
+                            printf("DIGITE SEU CPF (formato: 000.000.000-00):\n");
+                            getchar();
+                            fgets(cpf, sizeof(cpf), stdin);
+                            len = strlen(cpf);
+                            if (len > 0 && cpf[len - 1] == '\n') {
+                                cpf[len - 1] = '\0';
+                            }
+
+                             // Verificar se o CPF já está cadastrado
+                            for (i = 0; i < qtdAluno; i++) {
+                                if (strcmp(listarAluno[i].cpf, cpf) == 0) {
+                                    printf("Erro: CPF já cadastrado!\n");
+                                    return CPF_CADASTRADO;
+                                }
+                            }
+
+                            printf("DIGITE SUA DATA DE NASCIMENTO (formato: DD/MM/AAAA):\n");
+                            fgets(dataNascimento,sizeof(dataNascimento),stdin);
+
+                            len = strlen(dataNascimento);
+                            if (len > 0 && dataNascimento[len - 1] == '\n') {
+                                dataNascimento[len - 1] = '\0';
+                            }
+
                             if(matricula<0){
                                 return MATRICULA_INVALIDA;
                             }else{
@@ -54,6 +86,8 @@
                                     strcpy(listarAluno[qtdAluno].nome, nome);
                                     listarAluno[qtdAluno].sexo = sexo;
                                     listarAluno[qtdAluno].matricula = matricula;
+                                    strcpy(listarAluno[qtdAluno].cpf, cpf);
+                                    strcpy(listarAluno[qtdAluno].dataNascimento, dataNascimento);
                                     listarAluno[qtdAluno].ativo = 1;
                                     return CAD_ALUNO_SUCESSO;
                                     }else{
@@ -69,9 +103,15 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                         printf("LISTA DE ALUNO VAZIA\n");
                         }else{
                             for(int i=0; i<qtdAluno; i++){
-                                if(listarAluno[i].ativo==1)
-                                    printf(" aluno %d  nome:%s matricula: %d  sexo: %c\n", i,listarAluno[i].nome, listarAluno[i].matricula,listarAluno[i].sexo); 
-                            
+                                if(listarAluno[i].ativo==1){
+                                    printf("ALUNO %d:\n", i);
+                                    printf("SEXO: %c", listarAluno[i].sexo);
+                                    printf("MATRICULA: %d\n",listarAluno[i].matricula);
+                                    printf("NOME:%s\n",listarAluno[i].nome);
+                                    printf("CPF: %s\n", listarAluno[i].cpf);
+                                    printf("DATA DE NASCIMENTO: %s\n", listarAluno[i].dataNascimento);
+                                    printf("\n");
+                                }
                             }
                         }
         
@@ -79,8 +119,13 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
 
     int atualizarAluno(int qtdAluno, Aluno listarAluno[]){
     printf("ATUALIZAR ALUNO\n");
+                        int matricula;
+                        char cpf[15];
+                        char dataNascimento[11];
+                        char nome[20];
+                        char sexo;
+
                         printf("DIGITE A MATRICULA:\n");
-                        int matricula;  
                         scanf("%d", &matricula);
                         int achou = 0;
                         if(matricula<0){
@@ -89,14 +134,40 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                         for(int i=0; i<qtdAluno; i++){
                             if (matricula==listarAluno[i].matricula&&listarAluno[i].ativo){
                                 //atualização
-                                printf("DIGITE A NOVA MATRICULA:\n");
                                 int novaMatricula;
+                                char novoNome[20];
+                                char newDataNascimento[11];
+                                char newSexo;
+                                printf("DIGITE A NOVA MATRICULA:\n");
                                 scanf("%d", &novaMatricula);
+                                printf("NOME:\n");
+                                getchar();
+                                fgets(novoNome,sizeof(novoNome),stdin);
+
+                                size_t len=strlen(novoNome);
+                                if (len > 0 && novoNome[len - 1] == '\n') {
+                                    novoNome[len - 1] = '\0';
+                                 }
+                                
+                                printf("DATA DE NASCIMENTO:\n");
+                                getchar();
+                                fgets(newDataNascimento,sizeof(newDataNascimento),stdin);
+
+                                len=strlen(newDataNascimento);
+                                if (len > 0 && newDataNascimento[len - 1] == '\n') {
+                                    newDataNascimento[len - 1] = '\0';
+                                 }
+                                
+                                printf("SEXO:\n");
+                                scanf(" %c", &newSexo);
+
                                  if(novaMatricula<0){
                             return MATRICULA_INVALIDA;
                         }
-                                    listarAluno[i].matricula=novaMatricula;
-                                    
+                                listarAluno[i].matricula=novaMatricula;
+                                strcpy(listarAluno[i].nome,novoNome);
+                                strcpy(listarAluno[i].dataNascimento,newDataNascimento);
+                                listarAluno[i].sexo=newSexo;
                                 achou=1;
                                 break;
                             }

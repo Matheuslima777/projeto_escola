@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include "aluno.c"
 
-//mudando denovo para o segundo commit biruleib
 // utilizar um gerador automatico de matriculas
 // modularizar
 // novos atributos na struct
@@ -45,7 +44,9 @@ int main(void){
                             printf("MATRICULA INVALIDA\n");
                         }else if(retorno==SEXO_INVALIDO){
                             printf("SEXO INVALIDO\n");
-                        }else{
+                        }else if(retorno==CPF_CADASTRADO){
+                            printf("CPF JA CADASTRADO");
+                        }{
                             printf("CADASTRADO COM SUCESSO!\n");
                             qtdAluno++;
                         }
