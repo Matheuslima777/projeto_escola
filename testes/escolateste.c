@@ -2,7 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
-#include "aluno.c"
+#include "alunoteste.c"
 
 // utilizar um gerador automatico de matriculas
 // modularizar
@@ -44,7 +44,7 @@ int main(void){
                             printf("MATRICULA INVALIDA\n");
                         }else if(retorno==SEXO_INVALIDO){
                             printf("SEXO INVALIDO\n");
-                        }else if(retorno==CPF_CADASTRADO){
+                        }else if(retorno==CPF_JA_CADASTRADO){
                             printf("CPF JA CADASTRADO\n");
                         }else{
                             printf("CADASTRADO COM SUCESSO!\n");

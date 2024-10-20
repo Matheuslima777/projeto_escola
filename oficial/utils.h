@@ -10,7 +10,7 @@
 #define EXCLUSAO_ALUNO_SUCESSO -6
 #define SEXO_INVALIDO -7
 #define MATRICULA_INDISPONIVEL -8
-#define CPF_CADASTRADO -9
+#define CPF_JA_CADASTRADO -9
 
 
 typedef struct alu
