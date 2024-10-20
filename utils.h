@@ -17,7 +17,9 @@ typedef struct alu
 {
     int matricula;
     char cpf[15];
-    char dataNascimento[12];
+    int idade;
+    int diaNascimento, mesNascimento, anoNascimento;
+    int diaAtual, mesAtual, anoAtual;
     char nome[20];
     char sexo;
     int ativo;

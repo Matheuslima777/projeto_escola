@@ -33,8 +33,10 @@
                     }else{
                             int matricula;
                             char cpf[15];
-                            char dataNascimento[12];
+                            int diaNascimento, mesNascimento, anoNascimento;
+                            int diaAtual, mesAtual, anoAtual;
                             char nome[20];
+                            int idade;
                             char sexo;
                             int i;
 
@@ -71,12 +73,20 @@
                             }
 
                             printf("DIGITE SUA DATA DE NASCIMENTO (formato: DD/MM/AAAA):\n");
-                            fgets(dataNascimento,sizeof(dataNascimento),stdin);
+                            scanf("%d", &diaNascimento);
+                            scanf("%d", &mesNascimento);
+                            scanf("%d", &anoNascimento);
 
-                            len = strlen(dataNascimento);
-                            if (len > 0 && dataNascimento[len - 1] == '\n') {
-                                dataNascimento[len - 1] = '\0';
-                            }
+
+                            // Entrada da data atual
+                            printf("DIGITE A DATA ATUAL (formato: DD/MM/AAAA):\n");
+                            scanf("%d", &diaAtual);
+                            scanf("%d", &mesAtual);
+                            scanf("%d", &anoAtual);
+
+
+                             // Calcular idade
+                            idade = anoAtual - anoNascimento;
 
                             if(matricula<0){
                                 return MATRICULA_INVALIDA;
@@ -86,7 +96,10 @@
                                     listarAluno[qtdAluno].sexo = sexo;
                                     listarAluno[qtdAluno].matricula = matricula;
                                     strcpy(listarAluno[qtdAluno].cpf, cpf);
-                                    strcpy(listarAluno[qtdAluno].dataNascimento, dataNascimento);
+                                    listarAluno[qtdAluno].diaNascimento=diaNascimento;
+                                    listarAluno[qtdAluno].mesNascimento=mesNascimento;
+                                    listarAluno[qtdAluno].anoNascimento=anoNascimento;
+                                    listarAluno[qtdAluno].idade = idade;
                                     listarAluno[qtdAluno].ativo = 1;
                                     return CAD_ALUNO_SUCESSO;
                                     }else{
@@ -108,7 +121,8 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                                     printf("MATRICULA: %d\n",listarAluno[i].matricula);
                                     printf("NOME:%s\n",listarAluno[i].nome);
                                     printf("CPF: %s\n", listarAluno[i].cpf);
-                                    printf("DATA DE NASCIMENTO: %s\n", listarAluno[i].dataNascimento);
+                                    printf("DATA DE NASCIMENTO: %d/%d/%d\n", listarAluno[i].diaNascimento, listarAluno[i].mesNascimento, listarAluno[i].anoNascimento);
+                                    printf("IDADE: %d", listarAluno[i].idade);
                                     printf("\n");
                                 }
                             }
@@ -120,7 +134,9 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
     printf("ATUALIZAR ALUNO\n");
                         int matricula;
                         char cpf[15];
-                        char dataNascimento[11];
+                        int diaNascimento;
+                        int mesNascimento;
+                        int Nascimento;
                         char nome[20];
                         char sexo;
 
@@ -135,7 +151,9 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                                 //atualização
                                 int novaMatricula;
                                 char novoNome[20];
-                                char newDataNascimento[11];
+                                int newdiaNascimento;
+                                int newanoNascimento;
+                                int newmesNascimento;
                                 char newSexo;
                                 printf("DIGITE A NOVA MATRICULA:\n");
                                 scanf("%d", &novaMatricula);
@@ -149,13 +167,13 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                                  }
                                 
                                 printf("DATA DE NASCIMENTO:\n");
-                                getchar();
-                                fgets(newDataNascimento,sizeof(newDataNascimento),stdin);
+                                printf("DIA:\n");
+                                scanf("%d", &newdiaNascimento);
+                                printf("MES:\n");
+                                scanf("%d", &newmesNascimento);
+                                printf("ANO:\n");
+                                scanf("%d", &newanoNascimento);
 
-                                len=strlen(newDataNascimento);
-                                if (len > 0 && newDataNascimento[len - 1] == '\n') {
-                                    newDataNascimento[len - 1] = '\0';
-                                 }
                                 
                                 printf("SEXO:\n");
                                 scanf(" %c", &newSexo);
@@ -165,7 +183,9 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                         }
                                 listarAluno[i].matricula=novaMatricula;
                                 strcpy(listarAluno[i].nome,novoNome);
-                                strcpy(listarAluno[i].dataNascimento,newDataNascimento);
+                                listarAluno[i].diaNascimento=newdiaNascimento;
+                                listarAluno[i].mesNascimento=newmesNascimento;
+                                listarAluno[i].anoNascimento=newanoNascimento;
                                 listarAluno[i].sexo=newSexo;
                                 achou=1;
                                 break;
