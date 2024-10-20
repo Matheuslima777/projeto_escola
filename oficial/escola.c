@@ -5,6 +5,12 @@
 #include "aluno.c"
 #include "professor.c"
 
+
+//testando aqui
+
+
+
+
 // utilizar um gerador automatico de matriculas
 // modularizar
 // novos atributos na struct
