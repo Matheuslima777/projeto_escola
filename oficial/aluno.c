@@ -2,17 +2,17 @@
 #include <stdio.h>
 
 
- int menuAluno(){
-        int opcao;
-        printf("0-VOLTAR\n");   
-        printf("1-CADASTRAR ALUNO\n");   
-        printf("2-LISTAR ALUNO\n");   
-        printf("3-ATUALIZAR ALUNO\n"); 
-        printf("4-DELETAR ALUNO\n");
-        scanf("%d", &opcao);
-                        
-        return opcao;
-    }
+    int menuAluno(){
+            int opcao;
+            printf("0-VOLTAR\n");   
+            printf("1-CADASTRAR ALUNO\n");   
+            printf("2-LISTAR ALUNO\n");   
+            printf("3-ATUALIZAR ALUNO\n"); 
+            printf("4-DELETAR ALUNO\n");
+            scanf("%d", &opcao);
+                            
+            return opcao;
+        }
 
     int menuGeral(){
     int opcao;
@@ -26,10 +26,10 @@
         return opcao;
 }
 
-        int cadastrarAluno(int qtdAluno, Aluno listarAluno[]){
+    int cadastrarAluno(int qtdAluno, Aluno listarAluno[]){
                 printf("CADASTRAR ALUNO\n");
                     if(qtdAluno==TAM_ALUNO){
-                        return LISTA_CHEIA;
+                        return LISTA_ALUNO_CHEIA;
                     }else{
                             int matricula;
                             char cpf[15];
@@ -68,49 +68,65 @@
                              // Verificar se o CPF já está cadastrado
                             for (i = 0; i < qtdAluno; i++) {
                                 if (strcmp(listarAluno[i].cpf, cpf) == 0) {
-                                    return CPF_CADASTRADO;
+                                    return CPF_ALUNO_JA_CADASTRADO;
                                 }
                             }
 
                             printf("DIGITE SUA DATA DE NASCIMENTO (formato: DD/MM/AAAA):\n");
-                            scanf("%d", &diaNascimento);
-                            scanf("%d", &mesNascimento);
-                            scanf("%d", &anoNascimento);
+                            scanf("%d/%d/%d", &diaNascimento,&mesNascimento, &anoNascimento);
 
 
                             // Entrada da data atual
                             printf("DIGITE A DATA ATUAL (formato: DD/MM/AAAA):\n");
-                            scanf("%d", &diaAtual);
-                            scanf("%d", &mesAtual);
-                            scanf("%d", &anoAtual);
+                            scanf("%d/%d/%d", &diaAtual, &mesAtual, &anoAtual);
 
 
                              // Calcular idade
                             idade = anoAtual - anoNascimento;
 
                             if(matricula<0){
-                                return MATRICULA_INVALIDA;
+                                return MATRICULA_ALUNO_INVALIDA;
                             }else{
                                     if(sexo=='F' || sexo=='M'){
-                                    strcpy(listarAluno[qtdAluno].nome, nome);
-                                    listarAluno[qtdAluno].sexo = sexo;
-                                    listarAluno[qtdAluno].matricula = matricula;
-                                    strcpy(listarAluno[qtdAluno].cpf, cpf);
-                                    listarAluno[qtdAluno].diaNascimento=diaNascimento;
-                                    listarAluno[qtdAluno].mesNascimento=mesNascimento;
-                                    listarAluno[qtdAluno].anoNascimento=anoNascimento;
-                                    listarAluno[qtdAluno].idade = idade;
-                                    listarAluno[qtdAluno].ativo = 1;
-                                    return CAD_ALUNO_SUCESSO;
+
+                                        //nome do aluno
+                                        strcpy(listarAluno[qtdAluno].nome, nome);
+
+                                        //sexo do aluno
+                                        listarAluno[qtdAluno].sexo = sexo;
+
+                                        //matricula do aluno
+                                        listarAluno[qtdAluno].matricula = matricula;
+
+                                        //cpf do aluno
+                                        strcpy(listarAluno[qtdAluno].cpf, cpf);
+
+                                        //data de nascimento do aluno
+                                        listarAluno[qtdAluno].diaNascimento=diaNascimento;
+                                        listarAluno[qtdAluno].mesNascimento=mesNascimento;
+                                        listarAluno[qtdAluno].anoNascimento=anoNascimento;
+
+                                        //cadastrar idade
+                                        listarAluno[qtdAluno].idade = idade;
+
+                                        //data que o aluno entrou
+                                        listarAluno[qtdAluno].diaAtual=diaAtual;
+                                        listarAluno[qtdAluno].mesAtual=mesAtual;
+                                        listarAluno[qtdAluno].anoAtual=anoAtual;
+
+                                        //marca se o aluno está cadastrado ou não, serve para fazer exclusão logica
+                                        listarAluno[qtdAluno].ativo = 1;
+                                        
+                                        return CAD_ALUNO_SUCESSO;
                                     }else{
-                                        return SEXO_INVALIDO;
+                                        return SEXO_ALUNO_INVALIDO;
                                     }
                                 
                             }
                         }
                     }
 
-void listarAlunos(int qtdAluno, Aluno listarAluno[]){
+    void listarrAlunos(int qtdAluno, Aluno listarAluno[]){
         if(qtdAluno==0){
                         printf("LISTA DE ALUNO VAZIA\n");
                         }else{
@@ -122,7 +138,8 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                                     printf("NOME:%s\n",listarAluno[i].nome);
                                     printf("CPF: %s\n", listarAluno[i].cpf);
                                     printf("DATA DE NASCIMENTO: %d/%d/%d\n", listarAluno[i].diaNascimento, listarAluno[i].mesNascimento, listarAluno[i].anoNascimento);
-                                    printf("IDADE: %d", listarAluno[i].idade);
+                                    printf("IDADE: %d\n", listarAluno[i].idade);
+                                    printf("DATA DE CADASTRO: %d/%d/%d\n", listarAluno[i].diaAtual, listarAluno[i].mesAtual, listarAluno[i].anoAtual);
                                     printf("\n");
                                 }
                             }
@@ -133,18 +150,12 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
     int atualizarAluno(int qtdAluno, Aluno listarAluno[]){
     printf("ATUALIZAR ALUNO\n");
                         int matricula;
-                        char cpf[15];
-                        int diaNascimento;
-                        int mesNascimento;
-                        int Nascimento;
-                        char nome[20];
-                        char sexo;
 
                         printf("DIGITE A MATRICULA:\n");
                         scanf("%d", &matricula);
                         int achou = 0;
                         if(matricula<0){
-                            return MATRICULA_INVALIDA;
+                            return MATRICULA_ALUNO_INVALIDA;
                         }else{
                         for(int i=0; i<qtdAluno; i++){
                             if (matricula==listarAluno[i].matricula&&listarAluno[i].ativo){
@@ -166,20 +177,15 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                                     novoNome[len - 1] = '\0';
                                  }
                                 
-                                printf("DATA DE NASCIMENTO:\n");
-                                printf("DIA:\n");
-                                scanf("%d", &newdiaNascimento);
-                                printf("MES:\n");
-                                scanf("%d", &newmesNascimento);
-                                printf("ANO:\n");
-                                scanf("%d", &newanoNascimento);
+                                printf("DIGITE SUA DATA DE NASCIMENTO (formato: DD/MM/AAAA):\n");
+                                scanf("%d/%d/%d", &newdiaNascimento,&newmesNascimento, &newanoNascimento);
 
                                 
                                 printf("SEXO:\n");
                                 scanf(" %c", &newSexo);
 
                                  if(novaMatricula<0){
-                            return MATRICULA_INVALIDA;
+                            return MATRICULA_ALUNO_INVALIDA;
                         }
                                 listarAluno[i].matricula=novaMatricula;
                                 strcpy(listarAluno[i].nome,novoNome);
@@ -195,7 +201,7 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                             return ATUALIZADO_ALUNO_SUCESSO;
                             
                         }else{
-                            return MATRICULA_INEXISTENTE;
+                            return MATRICULA_ALUNO_INEXISTENTE;
                            
                         }
     
@@ -209,24 +215,36 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
         scanf("%d", &matricula);
         int achou = 0;
             if(matricula<0){
-                return MATRICULA_INVALIDA;
+                return MATRICULA_ALUNO_INVALIDA;
             }else{
                 for(int i=0; i<qtdAluno; i++){ 
                     if (matricula==listarAluno[i].matricula){
                                 
                         //exclusão logica
-                            listarAluno[i].ativo = -1;
+                        listarAluno[i].ativo = -1;
                                
-                            for (int j=i; j<qtdAluno-1; j++)
-                            {//movendo todos os alunos pra casa anterior
-                                listarAluno[j].matricula=listarAluno[j+1].matricula;
-                                listarAluno[j].sexo=listarAluno[j+1].sexo;
-                                listarAluno[j].ativo=listarAluno[j+1].ativo;
-                                            
-                            }
+                        for (int j=i; j<qtdAluno-1; j++)
+                        {
+                        //movendo todos os alunos pra casa anterior
+                            listarAluno[j].nome[20]=listarAluno[j+1].nome[20];
+                            listarAluno[j].cpf[15]=listarAluno[j+1].cpf[15];
+                            listarAluno[j].matricula=listarAluno[j+1].matricula;
+                            listarAluno[j].sexo=listarAluno[j+1].sexo;
+                            listarAluno[j].ativo=listarAluno[j+1].ativo;
+                            
+                        //movendo as datas de cadastro e de nascimento
+                        //nascimento
+                            listarAluno[j].diaNascimento=listarAluno[j+1].diaNascimento;
+                            listarAluno[j].mesNascimento=listarAluno[j+1].mesNascimento;
+                            listarAluno[j].anoNascimento=listarAluno[j+1].anoNascimento;
+                        //cadastro
+                            listarAluno[j].diaAtual=listarAluno[j+1].diaAtual;
+                            listarAluno[j].mesAtual=listarAluno[j+1].mesAtual;
+                            listarAluno[j].anoAtual=listarAluno[j+1].anoAtual;
+                        }
 
-                                achou=1;
-                                break;
+                            achou=1;
+                            break;
                     }
                 }
 
@@ -234,7 +252,7 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]){
                             return EXCLUSAO_ALUNO_SUCESSO;
                             
                         }else{
-                                return MATRICULA_INEXISTENTE;
+                                return MATRICULA_ALUNO_INEXISTENTE;
                            
                         }
                             
