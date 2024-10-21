@@ -42,7 +42,7 @@ int excluirAluno(int qtdAluno, Aluno listarAluno[]);
 void listarAlunos(int qtdAluno, Aluno listarAluno[]);
 
 /* ========================================================================================
-                                     FINAL ALUNO
+                                    FINAL ALUNO
 ======================================================================================== */
 
 
@@ -50,7 +50,7 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]);
 
 
 /* ========================================================================================
-                                   INICIO PROFESSOR
+                                    INICIO PROFESSOR
 ======================================================================================== */
 
 #define TAM_PROFESSOR 3
@@ -88,7 +88,43 @@ void listarProfessor(int qtdProfessor, Professor listarProfessor[]);
 
 
 /* ========================================================================================
-                                   FINAL PROFESSOR
+                                    FINAL PROFESSOR
 ======================================================================================== */
+
+
+
+/* ========================================================================================
+                                    INICIO DISCPLINA
+======================================================================================== */
+
+#define TAM_DISCIPLINA 3
+#define CAD_DISCIPLINA_SUCESSO -1
+#define COD_DISCIPLINA_INVALIDA -2
+#define LISTA_DISCIPLINA_CHEIA -3
+#define ATUALIZADO_DISCIPLINA_SUCESSO -4
+#define COD_DISCIPLINA_INEXISTENTE -5
+#define EXCLUSAO_DISCIPLINA_SUCESSO -6
+#define COD_DISCIPLINA_INDISPONIVEL -8
+
+typedef struct discip
+{
+    int coddisciplina;
+    int diaAtual, mesAtual, anoAtual;
+    char nome[20];
+    int ativo;
+}Disciplina;
+
+//prototipos das funções professor
+int menuDisciplina();
+int cadastrarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
+void listarrDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
+int atualizarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
+int excluirDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
+
+/* ========================================================================================
+                                    FINAL DISCIPLINA
+======================================================================================== */
+
+
 
 #endif // MINHAFUNCAO
