@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "alunoteste.c"
 #include "professorteste.c"
+#include "disciplinateste.c"
 
 // utilizar um gerador automatico de matriculas
 // modularizar
@@ -14,13 +15,16 @@ int main(void){
 
     Aluno listarAluno[TAM_ALUNO];
     Professor listarProfessor[TAM_PROFESSOR];
+    Disciplina listarDisciplina[TAM_DISCIPLINA];
+
     int opcao;
     int sair = 0; //falso
     int qtdAluno = 0;
     int qtdProfessor = 0;
+    int qtdDisciplina;
 
     while(!sair){
-      opcao = menuGeral();
+        opcao = menuGeral();
 
         switch(opcao){
             case 0:{
@@ -104,7 +108,8 @@ int main(void){
                 }
                     break;
             }
-            case 2:{
+            case 2:
+            {
                 printf("MODULO PROFESSOR\n");
                 int sairProfessor = 0;
                 int opcaoProfessor;
@@ -181,14 +186,82 @@ int main(void){
                 }
                     break;
             }
-            case 3:{
-
+            case 3:
+            {
                 printf("MODULO DISCIPLINA\n");
-                break;
+                int sairDisciplina = 0;
+                int opcaoDisciplina;
+                while (!sairDisciplina)
+                {
+                    opcaoDisciplina = menuDisciplina();
+                    switch(opcaoDisciplina){
+                        case 0:{
+                            sairDisciplina=1;
+                            break;
+                        }
+                        case 1:{
+                        int retorno = cadastrarDisciplina(qtdDisciplina, listarDisciplina);
+                        if(retorno==LISTA_DISCIPLINA_CHEIA){
+                            printf("LISTA DE DISCIPLINAS CHEIA\n");
+                        }else if(retorno==COD_DISCIPLINA_INVALIDA){
+                            printf("CODIGO DE DISCIPLINA INVALIDO\n");
+                        }else{
+                            printf("CADASTRADO COM SUCESSO!\n");
+                            qtdDisciplina++;
+                        }
+                        
+                        break;
+                        }
+                        case 2:
+                        {
+                            listarrDisciplina(qtdDisciplina, listarDisciplina);
+                            break;
+                        }
+                        case 3:{
+                            int retorno = atualizarDisciplina(qtdDisciplina,listarDisciplina);
+                            switch (retorno)
+                            {
+                            case COD_DISCIPLINA_INVALIDA:{
+                            printf("CODIGO DE DISCIPLINA INVALIDO!\n"); break;
+                            }
+                            case COD_DISCIPLINA_INEXISTENTE:{
+                            printf("CODIGO DE DISCIPLINA INEXISTENTE\n"); break;
+                            }
+                            case ATUALIZADO_DISCIPLINA_SUCESSO:{
+                            printf("DISCIPLINA ATUALIZADA COM SUCESSO!\n"); break;
+                            }
+                            }
+                            break;
+                        }
+                        case 4:{
+                            int retorno = excluirDisciplina(qtdDisciplina,listarDisciplina);
+                            switch (retorno)
+                            {
+                                case COD_DISCIPLINA_INVALIDA:{
+                                    printf("CODIGO DE DISCIPLINA INVALIDO\n");
+                                    break;
+                                }
+                                case COD_DISCIPLINA_INEXISTENTE:{
+                                    printf("CODIGO DE DISCIPLINA INEXISTENTE!\n");
+                                    break;
+                                }
+                                case EXCLUSAO_DISCIPLINA_SUCESSO:{
+                                    printf("DISCIPLINA EXCLUIDA COM SUCESSO!\n");
+                                    qtdDisciplina--;
+                                    break;
+                                }
+                            }
+                        break;
+                        }
+                        default:{
+                        printf("OPERACAO INVALIDA!\n");
+                        }
+                    }
+                }
+                    break;
+            }    
             }
         }
-    }
-
     return 0;
 }
 
