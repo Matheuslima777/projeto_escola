@@ -22,6 +22,8 @@
                     }else{
                             int coddisciplina;
                             int diaAtual, mesAtual, anoAtual;
+                            int matriculaprofverificada;
+                            int *matriculaprof;
                             char nome[20];
 
                             printf("DIGITE O NOME DA DISCIPLINA:\n");
@@ -38,6 +40,26 @@
                             printf("DIGITE O CODIGO DA DISCIPLINA:\n");
                             scanf("%d", &coddisciplina);
 
+                            //verificando prof
+                            int achouprof =0;
+                            while(achouprof == 0)
+                            {
+                                printf("DIGITE A MATRICULA DO PROFESSOR:\n");
+                                int retornoverificarprof = verificarProfessor(qtdProfessor, listarProfessor, matriculaprof);
+                                
+                                if(retornoverificarprof==PROFESSOR_EXISTE)
+                                {
+                                    printf("Matricula do professor é válida\n");
+                                    matriculaprofverificada = *matriculaprof;
+                                    achouprof = 1;
+                                }
+                                else if(retornoverificarprof==MATRICULA_PROFESSOR_INEXISTENTE)
+                                {
+                                    printf("Matricula do professor é inválida\n");
+                                }
+                            }
+                                
+
                             // Entrada da data atual
                             printf("DIGITE A DATA ATUAL (formato: DD/MM/AAAA):\n");
                             scanf("%d/%d/%d", &diaAtual, &mesAtual, &anoAtual);
@@ -53,13 +75,18 @@
                                 //cod da materia
                                 listarDisciplina[qtdDisciplina].coddisciplina = coddisciplina;
 
-                                //data que a materia entrou entrou
+                                //data que a materia entrou
                                 listarDisciplina[qtdDisciplina].diaAtual=diaAtual;
                                 listarDisciplina[qtdDisciplina].mesAtual=mesAtual;
                                 listarDisciplina[qtdDisciplina].anoAtual=anoAtual;
 
-                                //marca se o aluno está cadastrado ou não, serve para fazer exclusão logica
+                                //!linkar o professor a materia
+                                listarDisciplina[qtdDisciplina].matriculaprof = matriculaprofverificada;
+
+                                //marca se a disciplina está cadastrada ou não, serve para fazer exclusão logica
                                 listarDisciplina[qtdDisciplina].ativo = 1;
+
+
 
                                 return CAD_DISCIPLINA_SUCESSO;
                             }
@@ -80,6 +107,13 @@
                         printf("DISCIPLINA %d:\n", i);
                         printf("CODIGO DA DISCIPLINA: %d\n",listarDisciplina[i].coddisciplina);
                         printf("NOME:%s\n",listarDisciplina[i].nome);
+                        for(int j = 0; j<qtdProfessor; j++)
+                        {
+                            if(listarDisciplina[i].matriculaprof == listarProfessor[j].matricula)
+                            {
+                                printf("NOME DO PROFESSOR: %s\n", listarProfessor[j].nome);
+                            }
+                        }
                         printf("DATA DE CADASTRO: %d/%d/%d\n", listarDisciplina[i].diaAtual, listarDisciplina[i].mesAtual, listarDisciplina[i].anoAtual);
                         printf("\n");
                     }
@@ -88,49 +122,75 @@
         
     }
 
-    int atualizarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]){
-    printf("ATUALIZAR DISCIPLINAS\n");
-                        int coddisciplina;
+    int atualizarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[])
+    {
+        printf("ATUALIZAR DISCIPLINAS\n");
+        int coddisciplina;
 
-                        printf("DIGITE O CODIGO DA DISCIPLINA:\n");
-                        scanf("%d", &coddisciplina);
-                        int achou = 0;
-                        if(coddisciplina<0){
-                            return COD_DISCIPLINA_INVALIDA;
-                        }else{
-                        for(int i=0; i<qtdDisciplina; i++){
-                            if (coddisciplina==listarDisciplina[i].coddisciplina&&listarDisciplina[i].ativo){
-                                //atualização
-                                int novocodigo;
-                                char novoNome[20];
-                                printf("DIGITE O NOVO CODIGO:\n");
-                                scanf("%d", &novocodigo);
-                                printf("NOME:\n");
-                                getchar();
-                                fgets(novoNome,sizeof(novoNome),stdin);
+        printf("DIGITE O CODIGO DA DISCIPLINA:\n");
+        scanf("%d", &coddisciplina);
+        int achou = 0;
+        if(coddisciplina<0){
+            return COD_DISCIPLINA_INVALIDA;
+        }else
+        {
+        for(int i=0; i<qtdDisciplina; i++){
+            if (coddisciplina==listarDisciplina[i].coddisciplina&&listarDisciplina[i].ativo)
+                {
+                    //atualização
+                    int novocodigo;
+                    char novoNome[20];
+                    int novamatricula;
+                    int *matriculaprof;
+                    printf("DIGITE O NOVO CODIGO:\n");
+                    scanf("%d", &novocodigo);
+                    printf("NOME:\n");
+                    getchar();
+                    fgets(novoNome,sizeof(novoNome),stdin);
 
-                                size_t len=strlen(novoNome);
-                                if (len > 0 && novoNome[len - 1] == '\n') {
-                                    novoNome[len - 1] = '\0';
-                                }
+                    size_t len=strlen(novoNome);
+                    if (len > 0 && novoNome[len - 1] == '\n') {
+                        novoNome[len - 1] = '\0';
+                    }
 
-                                if(novocodigo<0)
-                                {
-                                    return COD_DISCIPLINA_INVALIDA;
-                                }
-                                listarDisciplina[i].coddisciplina=novocodigo;
-                                strcpy(listarDisciplina[i].nome,novoNome);
-                                achou=1;
-                                break;
-                            }
-                            
-                        }if(achou){
-                            return ATUALIZADO_DISCIPLINA_SUCESSO;
-                            
-                        }else{
-                            return COD_DISCIPLINA_INEXISTENTE;
+                    if(novocodigo<0)
+                    {
+                        return COD_DISCIPLINA_INVALIDA;
+                    }
+
+                    int achouprof =0;
+                    while(achouprof == 0)
+                    {
+                        printf("DIGITE A MATRICULA DO NOVO PROFESSOR:\n");
+                        int retornoverificarprof = verificarProfessor(qtdProfessor, listarProfessor, matriculaprof);
+                        
+                        if(retornoverificarprof==PROFESSOR_EXISTE)
+                        {
+                            printf("Matricula do professor é válida\n");
+                            novamatricula = *matriculaprof;
+                            achouprof = 1;
                         }
-    
+                        else if(retornoverificarprof==MATRICULA_PROFESSOR_INEXISTENTE)
+                        {
+                            printf("Matricula do professor é inválida\n");
+                        }
+                    }
+
+
+                    listarDisciplina[i].coddisciplina=novocodigo;
+                    strcpy(listarDisciplina[i].nome,novoNome);
+                    listarDisciplina[i].matriculaprof=novamatricula;
+                    achou=1;
+                    break;
+                }
+            
+            }if(achou){
+                return ATUALIZADO_DISCIPLINA_SUCESSO;
+                
+            }else{
+                return COD_DISCIPLINA_INEXISTENTE;
+            }
+
         }
     }
     
@@ -160,7 +220,10 @@
                             listarDisciplina[j].diaAtual=listarDisciplina[j+1].diaAtual;
                             listarDisciplina[j].mesAtual=listarDisciplina[j+1].mesAtual;
                             listarDisciplina[j].anoAtual=listarDisciplina[j+1].anoAtual;
+                        //mover a matricula do prof
+                            listarDisciplina[j].matriculaprof=listarDisciplina[j+1].matriculaprof;
                         }
+
                         achou=1;
                         break;
                     }
