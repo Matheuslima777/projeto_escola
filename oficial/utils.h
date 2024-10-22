@@ -63,6 +63,7 @@ void listarAlunos(int qtdAluno, Aluno listarAluno[]);
 #define SEXO_PROFESSOR_INVALIDO -7
 #define MATRICULA_PROFESSOR_INDISPONIVEL -8
 #define CPF_PROFESSOR_JA_CADASTRADO -9
+#define PROFESSOR_EXISTE -10
 
 typedef struct prof
 {
@@ -80,10 +81,11 @@ typedef struct prof
 int menuGeral();
 int menuAluno();
 int cadastrarProfessor(int qtdProfessor, Professor listarProfessor[]);
-void listarProfessor(int qtdProfessor, Professor listarProfessor[]);
+void listarrProfessor(int qtdProfessor, Professor listarProfessor[]);
 int atualizarProfessor(int qtdProfessor, Professor listarProfessor[]);
 int excluirProfessor(int qtdProfessor, Professor listarProfessor[]);
-void listarProfessor(int qtdProfessor, Professor listarProfessor[]);
+void listarrProfessor(int qtdProfessor, Professor listarProfessor[]);
+int verificarProfessor(int qtdprofessor,Professor listarProfessor[], int * matriculaprof);
 
 
 
@@ -111,6 +113,7 @@ typedef struct discip
     int coddisciplina;
     int diaAtual, mesAtual, anoAtual;
     char nome[20];
+    int matriculaprof;
     int ativo;
 }Disciplina;
 
@@ -126,5 +129,15 @@ int excluirDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
 ======================================================================================== */
 
 
+Aluno listarAluno[TAM_ALUNO];
+    Professor listarProfessor[TAM_PROFESSOR];
+    Disciplina listarDisciplina[TAM_DISCIPLINA];
 
-#endif // MINHAFUNCAO
+    int opcao;
+    int sair = 0; //falso
+    int qtdAluno = 0;
+    int qtdProfessor = 0;
+    int qtdDisciplina;
+
+// MINHAFUNCAO
+#endif 

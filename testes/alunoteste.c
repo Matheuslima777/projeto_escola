@@ -45,10 +45,10 @@
                             fgets(nome,sizeof(nome),stdin);
 
                              // Remover a nova linha ao final da string nome, se presente
-                             size_t len = strlen(nome);
-                             if (len > 0 && nome[len - 1] == '\n') {
+                            size_t len = strlen(nome);
+                            if (len > 0 && nome[len - 1] == '\n') {
                                     nome[len - 1] = '\0';
-                                 }
+                                }
 
                             printf("DIGITE A MATRICULA:\n");
                             scanf("%d", &matricula);
@@ -175,7 +175,7 @@
                                 size_t len=strlen(novoNome);
                                 if (len > 0 && novoNome[len - 1] == '\n') {
                                     novoNome[len - 1] = '\0';
-                                 }
+                                }
                                 
                                 printf("DIGITE SUA DATA DE NASCIMENTO (formato: DD/MM/AAAA):\n");
                                 scanf("%d/%d/%d", &newdiaNascimento,&newmesNascimento, &newanoNascimento);
@@ -184,7 +184,7 @@
                                 printf("SEXO:\n");
                                 scanf(" %c", &newSexo);
 
-                                 if(novaMatricula<0){
+                                if(novaMatricula<0){
                             return MATRICULA_ALUNO_INVALIDA;
                         }
                                 listarAluno[i].matricula=novaMatricula;
@@ -202,7 +202,7 @@
                             
                         }else{
                             return MATRICULA_ALUNO_INEXISTENTE;
-                           
+                        
                         }
     
         }
@@ -222,7 +222,7 @@
                                 
                         //exclusão logica
                         listarAluno[i].ativo = -1;
-                               
+                        
                         for (int j=i; j<qtdAluno-1; j++)
                         {
                         //movendo todos os alunos pra casa anterior
@@ -253,7 +253,7 @@
                             
                         }else{
                                 return MATRICULA_ALUNO_INEXISTENTE;
-                           
+                        
                         }
                             
                 }

@@ -13,24 +13,14 @@
 
 int main(void){
 
-    Aluno listarAluno[TAM_ALUNO];
-    Professor listarProfessor[TAM_PROFESSOR];
-    Disciplina listarDisciplina[TAM_DISCIPLINA];
-
-    int opcao;
-    int sair = 0; //falso
-    int qtdAluno = 0;
-    int qtdProfessor = 0;
-    int qtdDisciplina;
-
     while(!sair){
         opcao = menuGeral();
 
         switch(opcao){
-            case 0:{
+            case 0:{ //! -----SAIDA-----
             sair=1;
             break;
-            }case 1:
+            }case 1: //! -----MODULO ALUNO-----
             {
                 printf("MODULO ALUNO\n");
                 int sairAluno = 0;
@@ -38,7 +28,7 @@ int main(void){
                 while (!sairAluno)
                 {
                     opcaoAluno = menuAluno();
- 
+
                     switch(opcaoAluno){
                         case 0:{
                             sairAluno=1;
@@ -108,7 +98,7 @@ int main(void){
                 }
                     break;
             }
-            case 2:
+            case 2: //! -----MODULO PROFESSOR-----
             {
                 printf("MODULO PROFESSOR\n");
                 int sairProfessor = 0;
@@ -116,7 +106,7 @@ int main(void){
                 while (!sairProfessor)
                 {
                     opcaoProfessor = menuProfessor();
- 
+
                     switch(opcaoProfessor){
                         case 0:{
                             sairProfessor=1;
@@ -186,7 +176,7 @@ int main(void){
                 }
                     break;
             }
-            case 3:
+            case 3: //! -----MODULO DISCIPLINAS-----
             {
                 printf("MODULO DISCIPLINA\n");
                 int sairDisciplina = 0;

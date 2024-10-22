@@ -14,6 +14,26 @@
             return opcao;
         }
 
+    int verificarProfessor(int qtdprofessor,Professor listarProfessor[], int * matriculaprof)
+    {
+        scanf("%i", matriculaprof);
+        if(*matriculaprof<0)
+        {
+            return MATRICULA_PROFESSOR_INVALIDA;
+        }
+        int achouprof = 0;
+        for(int i =0; i < qtdprofessor; i++)
+        {
+            if(*matriculaprof == listarProfessor[i].matricula)
+            {
+                achouprof = 1;
+            }
+        }
+        if(achouprof==1)
+            return PROFESSOR_EXISTE;
+        else
+            return MATRICULA_PROFESSOR_INEXISTENTE;
+    }
 
     int cadastrarProfessor(int qtdProfessor, Professor listarProfessor[]){
                 printf("CADASTRAR ALUNO\n");
@@ -34,10 +54,10 @@
                             fgets(nome,sizeof(nome),stdin);
 
                              // Remover a nova linha ao final da string nome, se presente
-                             size_t len = strlen(nome);
-                             if (len > 0 && nome[len - 1] == '\n') {
+                            size_t len = strlen(nome);
+                            if (len > 0 && nome[len - 1] == '\n') {
                                     nome[len - 1] = '\0';
-                                 }
+                                }
 
                             printf("DIGITE A MATRICULA:\n");
                             scanf("%d", &matricula);
@@ -248,4 +268,3 @@
                 }
             }
     
-

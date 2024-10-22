@@ -14,6 +14,26 @@
             return opcao;
         }
 
+    int verificarProfessor(int qtdprofessor,Professor listarProfessor[], int * matriculaprof)
+    {
+        scanf("%i", matriculaprof);
+        if(*matriculaprof<0)
+        {
+            return MATRICULA_PROFESSOR_INVALIDA;
+        }
+        int achouprof = 0;
+        for(int i =0; i < qtdprofessor; i++)
+        {
+            if(*matriculaprof == listarProfessor[i].matricula)
+            {
+                achouprof = 1;
+            }
+        }
+        if(achouprof==1)
+            return PROFESSOR_EXISTE;
+        else
+            return MATRICULA_PROFESSOR_INEXISTENTE;
+    }
 
     int cadastrarProfessor(int qtdProfessor, Professor listarProfessor[]){
                 printf("CADASTRAR ALUNO\n");
@@ -34,10 +54,10 @@
                             fgets(nome,sizeof(nome),stdin);
 
                              // Remover a nova linha ao final da string nome, se presente
-                             size_t len = strlen(nome);
-                             if (len > 0 && nome[len - 1] == '\n') {
+                            size_t len = strlen(nome);
+                            if (len > 0 && nome[len - 1] == '\n') {
                                     nome[len - 1] = '\0';
-                                 }
+                                }
 
                             printf("DIGITE A MATRICULA:\n");
                             scanf("%d", &matricula);
@@ -164,7 +184,7 @@
                                 size_t len=strlen(novoNome);
                                 if (len > 0 && novoNome[len - 1] == '\n') {
                                     novoNome[len - 1] = '\0';
-                                 }
+                                }
                                 
                                 printf("DIGITE SUA DATA DE NASCIMENTO (formato: DD/MM/AAAA):\n");
                                 scanf("%d/%d/%d", &newdiaNascimento,&newmesNascimento, &newanoNascimento);
@@ -173,7 +193,7 @@
                                 printf("SEXO:\n");
                                 scanf(" %c", &newSexo);
 
-                                 if(novaMatricula<0){
+                                if(novaMatricula<0){
                                     return MATRICULA_PROFESSOR_INVALIDA;
                                 }
                                 listarProfessor[i].matricula=novaMatricula;
@@ -191,7 +211,7 @@
                             
                         }else{
                             return MATRICULA_PROFESSOR_INEXISTENTE;
-                           
+                        
                         }
     
         }
@@ -211,7 +231,7 @@
                                 
                         //exclusão logica
                         listarProfessor[i].ativo = -1;
-                               
+                        
                         for (int j=i; j<qtdProfessor-1; j++)
                         {
                         //movendo todos os professores pra casa anterior
@@ -242,10 +262,9 @@
                             
                         }else{
                             return MATRICULA_PROFESSOR_INEXISTENTE;
-                           
+                        
                         }
                             
                 }
             }
     
-
