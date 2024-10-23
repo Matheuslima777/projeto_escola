@@ -36,10 +36,10 @@ typedef struct alu
 int menuGeral();
 int menuAluno();   
 int cadastrarAluno(int qtdAluno, Aluno listarAluno[]);
-void listarAlunos(int qtdAluno, Aluno listarAluno[]);
+void listarrAlunos(int qtdAluno, Aluno listarAluno[]);
 int atualizarAluno(int qtdAluno, Aluno listarAluno[]);
 int excluirAluno(int qtdAluno, Aluno listarAluno[]);
-void listarAlunos(int qtdAluno, Aluno listarAluno[]);
+void listarrAlunos(int qtdAluno, Aluno listarAluno[]);
 
 /* ========================================================================================
                                     FINAL ALUNO
@@ -100,6 +100,7 @@ int verificarProfessor(int qtdprofessor,Professor listarProfessor[], int * matri
 ======================================================================================== */
 
 #define TAM_DISCIPLINA 3
+#define TAM_DA_DISCIPLINA 1
 #define CAD_DISCIPLINA_SUCESSO -1
 #define COD_DISCIPLINA_INVALIDA -2
 #define LISTA_DISCIPLINA_CHEIA -3
@@ -115,6 +116,8 @@ typedef struct discip
     char nome[20];
     int matriculaprof;
     int ativo;
+    Aluno listaALNdisciplina[TAM_DA_DISCIPLINA]; //!Lista de alunos DENTRO da disciplina
+
 }Disciplina;
 
 //prototipos das funções professor
@@ -129,7 +132,7 @@ int excluirDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
 ======================================================================================== */
 
 
-Aluno listarAluno[TAM_ALUNO];
+    Aluno listarAluno[TAM_ALUNO]; //! Lista de alunos BRUTA
     Professor listarProfessor[TAM_PROFESSOR];
     Disciplina listarDisciplina[TAM_DISCIPLINA];
 
