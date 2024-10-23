@@ -122,6 +122,12 @@
         
     }
 
+    int cadastraralunodisciplina(int qtdDisciplina, Disciplina listarDisciplina[])
+    {
+        printf("CADASTRAR ALUNO NA DISCIPLINA\n");
+        
+    }
+
     int atualizarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[])
     {
         printf("ATUALIZAR DISCIPLINAS\n");
