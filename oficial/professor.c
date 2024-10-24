@@ -1,5 +1,8 @@
 #include "utils.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 
     int menuProfessor(){
@@ -231,7 +234,7 @@
                                 
                         //exclusão logica
                         listarProfessor[i].ativo = -1;
-                        
+                    
                         for (int j=i; j<qtdProfessor-1; j++)
                         {
                         //movendo todos os professores pra casa anterior

@@ -13,6 +13,37 @@
 
 int main(void){
 
+    //zerando todas as qtd de alunos de cada discplina
+    zerandoqtdalunosdiscplina(listarDisciplina);
+
+    /*listarAluno[1].matricula = 123;
+    strcpy(listarAluno[1].cpf, "863");
+    listarAluno[1].diaNascimento=17, listarAluno[1].mesNascimento=5, listarAluno[1].anoNascimento=2005;
+    listarAluno[1].diaAtual=23, listarAluno[1].mesAtual=10, listarAluno[1].anoAtual=2024;
+    strcpy(listarAluno[1].nome, "cauas");
+    listarAluno[1].idade = 18;
+    listarAluno[1].sexo = 'M';
+    listarAluno[1].ativo = 1;
+
+    listarProfessor[1].matricula = 321;
+    strcpy(listarProfessor[1].cpf, "863");
+    listarProfessor[1].diaNascimento=17, listarAluno[1].mesNascimento=5, listarAluno[1].anoNascimento=2005;
+    listarProfessor[1].diaAtual=23, listarAluno[1].mesAtual=10, listarAluno[1].anoAtual=2024;
+    strcpy(listarProfessor[1].nome, "matheus");
+    listarProfessor[1].idade = 18;
+    listarProfessor[1].sexo = 'M';
+    listarProfessor[1].ativo = 1;
+
+    listarDisciplina[1].coddisciplina=444;
+    listarDisciplina[1].diaAtual=23, listarDisciplina[1].mesAtual=10, listarDisciplina[1].anoAtual=2024;
+    strcpy(listarDisciplina[1].nome, "bio");
+    listarDisciplina[1].matriculaprof=321;
+    listarDisciplina[1].ativo=1;*/
+
+
+
+
+
     while(!sair){
         opcao = menuGeral();
 
@@ -189,7 +220,8 @@ int main(void){
                             sairDisciplina=1;
                             break;
                         }
-                        case 1:{
+                        case 1:
+                        {
                         int retorno = cadastrarDisciplina(qtdDisciplina, listarDisciplina);
                         if(retorno==LISTA_DISCIPLINA_CHEIA){
                             printf("LISTA DE DISCIPLINAS CHEIA\n");
@@ -223,7 +255,8 @@ int main(void){
                             }
                             break;
                         }
-                        case 4:{
+                        case 4:
+                        {
                             int retorno = excluirDisciplina(qtdDisciplina,listarDisciplina);
                             switch (retorno)
                             {
@@ -242,6 +275,19 @@ int main(void){
                                 }
                             }
                         break;
+                        }
+                        case 5:
+                        {
+                            int retorno = cadastraralunodisciplina(qtdDisciplina, listarDisciplina);
+                            if(retorno==DISCIPLINA_CHEIA)
+                            {
+                                printf("DISCIPLINA CHEIA\n");
+                            }
+                            else
+                            {
+                                printf("CADASTRADO COM SUCESSO!\n");
+                            }
+                            break;
                         }
                         default:{
                         printf("OPERACAO INVALIDA!\n");
