@@ -4,6 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 
+
     void zerandoqtdalunosdiscplina(Disciplina listarDisciplina[])
     {
         for(int i=0; i<TAM_DA_DISCIPLINA; i++)
