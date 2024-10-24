@@ -1,6 +1,16 @@
 #include "utils.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
+    void zerandoqtdalunosdiscplina(Disciplina listarDisciplina[])
+    {
+        for(int i=0; i<TAM_DA_DISCIPLINA; i++)
+        {
+            listarDisciplina[i].qtdalunosdisciplina = 0;
+        }
+    }
 
     int menuDisciplina(){
             int opcao;
@@ -9,8 +19,9 @@
             printf("2-LISTAR DISCIPLINA\n");   
             printf("3-ATUALIZAR DISCIPLINA\n"); 
             printf("4-DELETAR DISCIPLINA\n");
+            printf("5-CADASTRAR ALUNO NA DISCIPLINA\n");
             scanf("%d", &opcao);
-                            
+
             return opcao;
         }
 
@@ -23,7 +34,7 @@
                             int coddisciplina;
                             int diaAtual, mesAtual, anoAtual;
                             int matriculaprofverificada;
-                            int *matriculaprof;
+                            int matriculaprof;
                             char nome[20];
 
                             printf("DIGITE O NOME DA DISCIPLINA:\n");
@@ -40,17 +51,17 @@
                             printf("DIGITE O CODIGO DA DISCIPLINA:\n");
                             scanf("%d", &coddisciplina);
 
-                            //verificando prof
+                            //verificando se o professor existe
                             int achouprof =0;
                             while(achouprof == 0)
                             {
                                 printf("DIGITE A MATRICULA DO PROFESSOR:\n");
-                                int retornoverificarprof = verificarProfessor(qtdProfessor, listarProfessor, matriculaprof);
+                                int retornoverificarprof = verificarProfessor(qtdProfessor, listarProfessor, &matriculaprof);
                                 
                                 if(retornoverificarprof==PROFESSOR_EXISTE)
                                 {
                                     printf("Matricula do professor é válida\n");
-                                    matriculaprofverificada = *matriculaprof;
+                                    matriculaprofverificada = matriculaprof;
                                     achouprof = 1;
                                 }
                                 else if(retornoverificarprof==MATRICULA_PROFESSOR_INEXISTENTE)
@@ -94,6 +105,24 @@
                         }
     }
 
+    int verificadorDisciplina(int qtdDisciplina, Disciplina listarDisciplina[], int * coddisciplina)
+    {
+        scanf("%i", coddisciplina);
+        if(*coddisciplina<0)
+        {
+            return COD_DISCIPLINA_INVALIDA;
+        }
+        
+        for(int i =0; i < qtdDisciplina; i++)
+        {
+            if(*coddisciplina == listarDisciplina[i].coddisciplina)
+            {
+                return DISCIPLINA_EXISTE;
+            }
+        }
+        return COD_DISCIPLINA_INEXISTENTE;
+    }
+
     void listarrDisciplina(int qtdDisciplina, Disciplina listarDisciplina[])
     {
         if(qtdDisciplina==0)
@@ -120,6 +149,77 @@
                 }
             }
         
+    }
+
+    int cadastraralunodisciplina(int qtdDisciplina, Disciplina listarDisciplina[])
+    {
+        printf("CADASTRAR ALUNO NA DISCIPLINA\n");
+
+        int coddisciplinavalido;
+        int coddisciplina;
+
+        //verificando se a disciplina existe
+        int achoudisciplina = 0;
+        while(achoudisciplina == 0)
+        {
+            printf("DIGITE O CODIGO DA MATERIA\n");
+            int retorno_verificador_disciplina = verificadorDisciplina(qtdDisciplina, listarDisciplina, &coddisciplina);
+            
+            if(retorno_verificador_disciplina==DISCIPLINA_EXISTE)
+            {
+                printf("Codigo da disciplina é válido\n");
+                coddisciplinavalido = coddisciplina;
+                achoudisciplina = 1;
+            }
+            else if(retorno_verificador_disciplina==COD_DISCIPLINA_INEXISTENTE)
+            {
+                printf("Codigo da disciplina inválido\n");
+            }
+        }
+
+
+        int cadastroMATaluno;
+        int matriculaaluno;
+        //verificando se o aluno existe
+        int achoualuno =0;
+        while(achoualuno == 0)
+        {
+            printf("DIGITE A MATRICULA DO ALUNO:\n");
+            int retorno_verificador_aluno = verificarAluno(qtdAluno, listarAluno, &matriculaaluno);
+            
+            if(retorno_verificador_aluno==ALUNO_EXISTE)
+            {
+                printf("Matricula do aluno é válida\n");
+                cadastroMATaluno = matriculaaluno;
+                achoualuno = 1;
+            }
+            else if(retorno_verificador_aluno==MATRICULA_ALUNO_INEXISTENTE)
+            {
+                printf("Matricula do aluno é inválida\n");
+            }
+        }
+        
+        for(int i = 0; i<qtdDisciplina; i++)
+        {
+            if(coddisciplinavalido==listarDisciplina[i].coddisciplina)
+            {
+                if(listarDisciplina[i].qtdalunosdisciplina == TAM_DA_DISCIPLINA)
+                {
+                    return DISCIPLINA_CHEIA;
+                    break;
+                }
+                for(int j = 0; j<qtdAluno; j++)
+                {
+                    if(cadastroMATaluno==listarAluno[j].matricula)
+                    {
+                        listarDisciplina[i].listaALNdisciplina[listarDisciplina[i].qtdalunosdisciplina].matricula = listarAluno[j].matricula;
+                        listarDisciplina[i].qtdalunosdisciplina++;
+                        
+                    }
+                }
+            }
+        }
+        return CAD_ALUNO_DISCIPLINA_SUCESSO;
     }
 
     int atualizarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[])

@@ -18,6 +18,7 @@
 #define SEXO_ALUNO_INVALIDO -7
 #define MATRICULA_ALUNO_INDISPONIVEL -8
 #define CPF_ALUNO_JA_CADASTRADO -9
+#define ALUNO_EXISTE -10
 
 typedef struct alu
 {
@@ -40,6 +41,7 @@ void listarrAlunos(int qtdAluno, Aluno listarAluno[]);
 int atualizarAluno(int qtdAluno, Aluno listarAluno[]);
 int excluirAluno(int qtdAluno, Aluno listarAluno[]);
 void listarrAlunos(int qtdAluno, Aluno listarAluno[]);
+int verificarAluno(int qtdAluno, Aluno listarAluno[], int * matriculaaluno);
 
 /* ========================================================================================
                                     FINAL ALUNO
@@ -108,6 +110,9 @@ int verificarProfessor(int qtdprofessor,Professor listarProfessor[], int * matri
 #define COD_DISCIPLINA_INEXISTENTE -5
 #define EXCLUSAO_DISCIPLINA_SUCESSO -6
 #define COD_DISCIPLINA_INDISPONIVEL -8
+#define DISCIPLINA_EXISTE -10
+#define CAD_ALUNO_DISCIPLINA_SUCESSO -11
+#define DISCIPLINA_CHEIA -12
 
 typedef struct discip
 {
@@ -117,7 +122,7 @@ typedef struct discip
     int matriculaprof;
     int ativo;
     Aluno listaALNdisciplina[TAM_DA_DISCIPLINA]; //!Lista de alunos DENTRO da disciplina
-
+    int qtdalunosdisciplina;
 }Disciplina;
 
 //prototipos das funções professor
@@ -126,6 +131,8 @@ int cadastrarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
 void listarrDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
 int atualizarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
 int excluirDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
+int verificadorDisciplina(int qtdDisciplina, Disciplina listarDisciplina[], int * coddisciplina);
+void zerandoqtdalunosdiscplina(Disciplina listarDisciplina[]);
 
 /* ========================================================================================
                                     FINAL DISCIPLINA
@@ -140,7 +147,8 @@ int excluirDisciplina(int qtdDisciplina, Disciplina listarDisciplina[]);
     int sair = 0; //falso
     int qtdAluno = 0;
     int qtdProfessor = 0;
-    int qtdDisciplina;
-
+    int qtdDisciplina = 0;
+    
+    
 // MINHAFUNCAO
 #endif 
