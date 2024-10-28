@@ -16,6 +16,7 @@ int menuRelatorio() {
   printf("7-LISTAR ALUNOS POR DATA DE NASCIMENTO:\n");
   printf("8-LISTAR PROFESSOR POR SEXO:\n");
   printf("9-LISTAR PROFESSOR POR ORDEM ALFABETICA:\n");
+  printf("10-LISTAR PROFESSOR POR DATA DE NASCIMENTO:\n");
   scanf("%d", &opcao);
 
   return opcao;
@@ -217,7 +218,9 @@ void listarProfessoresPorSexo(int qtdProfessor, Professor listarProfessor[]) {
             encontrou = 1;
         }
     }
+    printf("\n");
 }
+
 // Função para listar professores em ordem alfabética
 void listarProfessoresOrdemAlfabetica(int qtdProfessor, Professor listarProfessor[]){
     Professor temp;
@@ -239,7 +242,35 @@ void listarProfessoresOrdemAlfabetica(int qtdProfessor, Professor listarProfesso
     printf("LISTA DE PROFESSORES EM ORDEM ALFABÉTICA:\n");
     for (int i = 0; i < qtdProfessor; i++) {
         if (listarProfessor[i].ativo == 1) {
-            printf("Nome: %s\n", listarProfessor[i].nome);
+            printf("Nome: %s\n\n", listarProfessor[i].nome);
+        }
+    }
+}
+
+void ordenarProfessoresPorDataNascimento(int qtdProfessor, Professor listarProfessor[]) {
+    for (int i = 0; i < qtdProfessor - 1; i++) {
+        for (int j = i + 1; j < qtdProfessor; j++) {
+            // Comparação entre as datas de nascimento (ano, mês e dia)
+            if (listarProfessor[i].ativo == 1 && listarProfessor[j].ativo == 1 &&
+                (listarProfessor[i].anoNascimento > listarProfessor[j].anoNascimento ||
+                (listarProfessor[i].anoNascimento == listarProfessor[j].anoNascimento && listarProfessor[i].mesNascimento > listarProfessor[j].mesNascimento) ||
+                (listarProfessor[i].anoNascimento == listarProfessor[j].anoNascimento && listarProfessor[i].mesNascimento == listarProfessor[j].mesNascimento && listarProfessor[i].diaNascimento > listarProfessor[j].diaNascimento))) {
+
+                // Troca de posições dos professores
+                Professor temp = listarProfessor[i];
+                listarProfessor[i] = listarProfessor[j];
+                listarProfessor[j] = temp;
+            }
+        }
+    }
+
+    // Exibir a lista de professores ordenada por data de nascimento
+    printf("LISTA DE PROFESSORES POR DATA DE NASCIMENTO:\n");
+    for (int i = 0; i < qtdProfessor; i++) {
+        if (listarProfessor[i].ativo == 1) {
+            printf("NOME: %s\n", listarProfessor[i].nome);
+            printf("MATRICULA: %d\n", listarProfessor[i].matricula);
+            printf("DATA DE NASCIMENTO: %02d/%02d/%04d\n\n", listarProfessor[i].diaNascimento, listarProfessor[i].mesNascimento, listarProfessor[i].anoNascimento);
         }
     }
 }

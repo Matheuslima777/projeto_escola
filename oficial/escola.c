@@ -294,16 +294,25 @@ listarDisciplinasSimples(qtdDisciplina,listarDisciplina,  qtdProfessor, listarPr
                 break;
             }case 4:{      
 listarDisciplinaComAlunos(qtdDisciplina,listarDisciplina);
+              break;
             }case 5:{
                  listarAlunosPorSexo(qtdAluno, listarAluno);
+              break;
             }case 6:{
                listarAlunosOrdemAlfabetica(qtdAluno, listarAluno);
+              break;
             }case 7:{
               ordenarAlunosPorDataNascimento(qtdAluno, listarAluno);
+              break;
             }case 8:{
               listarProfessoresPorSexo(qtdProfessor, listarProfessor);
+              break;
             }case 9:{
 listarProfessoresOrdemAlfabetica(qtdProfessor,listarProfessor);
+              break;
+            }case 10:{
+ordenarProfessoresPorDataNascimento(qtdProfessor,listarProfessor);
+              break;
             }
           }
         }
