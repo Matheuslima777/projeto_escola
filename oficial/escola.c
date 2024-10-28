@@ -297,7 +297,13 @@ listarDisciplinaComAlunos(qtdDisciplina,listarDisciplina);
             }case 5:{
                  listarAlunosPorSexo(qtdAluno, listarAluno);
             }case 6:{
-              ordenarAlunosPorNome(qtdAluno, listarAluno);
+               listarAlunosOrdemAlfabetica(qtdAluno, listarAluno);
+            }case 7:{
+              ordenarAlunosPorDataNascimento(qtdAluno, listarAluno);
+            }case 8:{
+              listarProfessoresPorSexo(qtdProfessor, listarProfessor);
+            }case 9:{
+listarProfessoresOrdemAlfabetica(qtdProfessor,listarProfessor);
             }
           }
         }

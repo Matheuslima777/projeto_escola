@@ -13,6 +13,9 @@ int menuRelatorio() {
   printf("4-LISTAR DISCIPLINAS COM ALUNOS\n");
   printf("5-LISTAR ALUNOS POR SEXO:\n");
   printf("6-LISTAR ALUNOS POR ORDEM ALFABETICA:\n");
+  printf("7-LISTAR ALUNOS POR DATA DE NASCIMENTO:\n");
+  printf("8-LISTAR PROFESSOR POR SEXO:\n");
+  printf("9-LISTAR PROFESSOR POR ORDEM ALFABETICA:\n");
   scanf("%d", &opcao);
 
   return opcao;
@@ -26,11 +29,11 @@ void listarAlunosSimples(int qtdAluno, Aluno listarAluno[]) {
     }else{
     for (int i = 0; i < qtdAluno; i++) {
         if (listarAluno[i].ativo == 1) {
-            printf("Aluno %d:\n", i + 1);
-            printf("Nome: %s\n", listarAluno[i].nome);
-            printf("Matrícula: %d\n", listarAluno[i].matricula);
-            printf("Sexo: %c\n", listarAluno[i].sexo);
-            printf("Data de Nascimento: %d/%d/%d\n", listarAluno[i].diaNascimento, listarAluno[i].mesNascimento, listarAluno[i].anoNascimento);
+            printf("ALUNO %d:\n", i + 1);
+            printf("NOME: %s\n", listarAluno[i].nome);
+            printf("MATRICULA: %d\n", listarAluno[i].matricula);
+            printf("SEXO: %c\n", listarAluno[i].sexo);
+            printf("DATA DE NASCIMENTO: %d/%d/%d\n", listarAluno[i].diaNascimento, listarAluno[i].mesNascimento, listarAluno[i].anoNascimento);
             printf("CPF: %s\n\n", listarAluno[i].cpf);
         }
     }
@@ -44,11 +47,11 @@ void listarProfessoresSimples(int qtdProfessor, Professor listarProfessor[]) {
     }else{
     for (int i = 0; i < qtdProfessor; i++) {
         if (listarProfessor[i].ativo == 1) {
-            printf("Professor %d:\n", i + 1);
-            printf("Nome: %s\n", listarProfessor[i].nome);
-            printf("Matrícula: %d\n", listarProfessor[i].matricula);
-            printf("Sexo: %c\n", listarProfessor[i].sexo);
-            printf("Data de Nascimento: %d/%d/%d\n", listarProfessor[i].diaNascimento, listarProfessor[i].mesNascimento, listarProfessor[i].anoNascimento);
+            printf("PROFESSOR %d:\n", i + 1);
+            printf("NOME: %s\n", listarProfessor[i].nome);
+            printf("MATRICULA: %d\n", listarProfessor[i].matricula);
+            printf("SEXO: %c\n", listarProfessor[i].sexo);
+            printf("DATA DE NASCIMENTO: %d/%d/%d\n", listarProfessor[i].diaNascimento, listarProfessor[i].mesNascimento, listarProfessor[i].anoNascimento);
             printf("CPF: %s\n\n", listarProfessor[i].cpf);
         }
     }
@@ -57,12 +60,15 @@ void listarProfessoresSimples(int qtdProfessor, Professor listarProfessor[]) {
 
 void listarDisciplinasSimples(int qtdDisciplina, Disciplina listarDisciplina[], int qtdProfessor, Professor listarProfessor[]) {
     printf("LISTA DE DISCIPLINAS\n");
+    if(qtdDisciplina==0){
+        printf("LISTA DE DISCIPLINAS VAZIA\n");
+    }else{
     for (int i = 0; i < qtdDisciplina; i++) {
         if (listarDisciplina[i].ativo == 1) {
-            printf("Disciplina %d:\n", i + 1);
-            printf("Nome: %s\n", listarDisciplina[i].nome);
-            printf("Código: %d\n", listarDisciplina[i].coddisciplina);
-            printf("Professor Matriculado (Matrícula: %d): ", listarDisciplina[i].matriculaprof);
+            printf("DISCIPLINA %d:\n", i + 1);
+            printf("NOME: %s\n", listarDisciplina[i].nome);
+            printf("CODIGO: %d\n", listarDisciplina[i].coddisciplina);
+            printf("PROFESSOR MATRICULADO (Matrícula: %d): ", listarDisciplina[i].matriculaprof);
 
             // Encontrar e imprimir o nome do professor correspondente
             int professorEncontrado = 0;
@@ -75,10 +81,11 @@ void listarDisciplinasSimples(int qtdDisciplina, Disciplina listarDisciplina[], 
             }
             // Caso o professor não seja encontrado (por exemplo, se foi excluído)
             if (!professorEncontrado) {
-                printf("Professor não encontrado\n\n");
+                printf("PROFESSOR NAO ENCONTRADO\n\n");
             }
         }
     }
+}
 }
 
 void listarDisciplinaComAlunos(int qtdDisciplina, Disciplina listarDisciplina[]) {
@@ -150,11 +157,39 @@ void listarAlunosPorSexo(int qtdAluno, Aluno listarAluno[]) {
     }
 }
 
-// Ordenar e listar alunos por nome
-void ordenarAlunosPorNome(int qtdAluno, Aluno listarAluno[]) {
+
+// Função para listar alunos em ordem alfabética
+void listarAlunosOrdemAlfabetica(int qtdAluno, Aluno listarAluno[]) {
+    Aluno temp;
+
+    // Algoritmo de ordenação por seleção
     for (int i = 0; i < qtdAluno - 1; i++) {
         for (int j = i + 1; j < qtdAluno; j++) {
-            if (strcmp(listarAluno[i].nome, listarAluno[j].nome) > 0) {
+            if (listarAluno[i].ativo == 1 && listarAluno[j].ativo == 1 && 
+                strcmp(listarAluno[i].nome, listarAluno[j].nome) > 0) {
+                // Troca os alunos de posição caso estejam fora de ordem
+                temp = listarAluno[i];
+                listarAluno[i] = listarAluno[j];
+                listarAluno[j] = temp;
+            }
+        }
+    }
+
+    // Exibe a lista de alunos em ordem alfabética
+    printf("LISTA DE ALUNOS EM ORDEM ALFABÉTICA:\n");
+    for (int i = 0; i < qtdAluno; i++) {
+        if (listarAluno[i].ativo == 1) {
+            printf("Nome: %s\n", listarAluno[i].nome);
+        }
+    }
+}
+
+void ordenarAlunosPorDataNascimento(int qtdAluno, Aluno listarAluno[]) {
+    for (int i = 0; i < qtdAluno - 1; i++) {
+        for (int j = i + 1; j < qtdAluno; j++) {
+            if (listarAluno[i].anoNascimento > listarAluno[j].anoNascimento || 
+               (listarAluno[i].anoNascimento == listarAluno[j].anoNascimento && listarAluno[i].mesNascimento > listarAluno[j].mesNascimento) ||
+               (listarAluno[i].anoNascimento == listarAluno[j].anoNascimento && listarAluno[i].mesNascimento == listarAluno[j].mesNascimento && listarAluno[i].diaNascimento > listarAluno[j].diaNascimento)) {
                 Aluno temp = listarAluno[i];
                 listarAluno[i] = listarAluno[j];
                 listarAluno[j] = temp;
@@ -164,3 +199,47 @@ void ordenarAlunosPorNome(int qtdAluno, Aluno listarAluno[]) {
     listarrAlunos(qtdAluno, listarAluno);
 }
 
+// Função para listar professores por sexo
+void listarProfessoresPorSexo(int qtdProfessor, Professor listarProfessor[]) {
+    char sexo;
+
+    // Solicita o sexo ao usuário
+    printf("DIGITE O SEXO DOS PROFESSORES QUE DESEJA LISTAR (M/F): ");
+    scanf(" %c", &sexo);
+    sexo = toupper(sexo);  
+
+    printf("LISTA DE PROFESSORES POR SEXO (%c):\n", sexo);
+    int encontrou = 0;  
+
+    for (int i = 0; i < qtdProfessor; i++) {
+        if (listarProfessor[i].ativo == 1 && listarProfessor[i].sexo == sexo) {
+            printf("%s\n", listarProfessor[i].nome);
+            encontrou = 1;
+        }
+    }
+}
+// Função para listar professores em ordem alfabética
+void listarProfessoresOrdemAlfabetica(int qtdProfessor, Professor listarProfessor[]){
+    Professor temp;
+
+    // Algoritmo de ordenação por seleção
+    for (int i = 0; i < qtdProfessor - 1; i++) {
+        for (int j = i + 1; j < qtdProfessor; j++) {
+            if (listarProfessor[i].ativo == 1 && listarProfessor[j].ativo == 1 && 
+                strcmp(listarProfessor[i].nome, listarProfessor[j].nome) > 0) {
+                // Troca os professores de posição caso estejam fora de ordem
+                temp = listarProfessor[i];
+                listarProfessor[i] = listarProfessor[j];
+                listarProfessor[j] = temp;
+            }
+        }
+    }
+
+    // Exibe a lista de professores em ordem alfabética
+    printf("LISTA DE PROFESSORES EM ORDEM ALFABÉTICA:\n");
+    for (int i = 0; i < qtdProfessor; i++) {
+        if (listarProfessor[i].ativo == 1) {
+            printf("Nome: %s\n", listarProfessor[i].nome);
+        }
+    }
+}
