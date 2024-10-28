@@ -20,6 +20,7 @@ void ordenarAlunosPorDataNascimento(int qtdAluno, Aluno listarAluno[]);
 void listarProfessoresPorSexo(int qtdProfessor, Professor listarProfessor[]);
 void listarProfessoresOrdemAlfabetica(int qtdProfessor, Professor listarProfessor[]);
 void ordenarProfessoresPorDataNascimento(int qtdProfessor, Professor listarProfessor[]);
+void listarAniversariantesDoMes(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Professor listarProfessor[]);
 
 
 #endif

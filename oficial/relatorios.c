@@ -17,6 +17,7 @@ int menuRelatorio() {
   printf("8-LISTAR PROFESSOR POR SEXO:\n");
   printf("9-LISTAR PROFESSOR POR ORDEM ALFABETICA:\n");
   printf("10-LISTAR PROFESSOR POR DATA DE NASCIMENTO:\n");
+  printf("11-LISTAR ANIVERSARIANTES DO MES:\n");
   scanf("%d", &opcao);
 
   return opcao;
@@ -272,5 +273,44 @@ void ordenarProfessoresPorDataNascimento(int qtdProfessor, Professor listarProfe
             printf("MATRICULA: %d\n", listarProfessor[i].matricula);
             printf("DATA DE NASCIMENTO: %02d/%02d/%04d\n\n", listarProfessor[i].diaNascimento, listarProfessor[i].mesNascimento, listarProfessor[i].anoNascimento);
         }
+    }
+}
+
+// Função para listar aniversariantes do mês (alunos e professores)
+void listarAniversariantesDoMes(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Professor listarProfessor[]) {
+    int diaAtual, mesAtual, anoAtual;
+
+    // Perguntar a data atual ao usuário
+    printf("INFORME A DATA ATUAL (DD MM AAAA): ");
+    scanf("%d/%d/%d", &diaAtual, &mesAtual, &anoAtual);
+
+    printf("\nANIVERSARIANTES DO MÊS %d:\n\n", mesAtual);
+
+    // Listar alunos aniversariantes do mês
+    printf("ALUNOS:\n");
+    int encontrouAniversarianteAluno = 0;
+    for (int i = 0; i < qtdAluno; i++) {
+        if (listarAluno[i].ativo == 1 && listarAluno[i].mesNascimento == mesAtual) {
+            printf("- %s (DATA DE NASCIMENTO: %02d/%02d/%04d)\n", 
+                   listarAluno[i].nome, listarAluno[i].diaNascimento, listarAluno[i].mesNascimento, listarAluno[i].anoNascimento);
+            encontrouAniversarianteAluno = 1;
+        }
+    }
+    if (!encontrouAniversarianteAluno) {
+        printf("NENHUM ALUNO FAZ ANIVERSARIO NESTE MES.\n");
+    }
+
+    // Listar professores aniversariantes do mês
+    printf("\n PROFESSORES:\n");
+    int encontrouAniversarianteProfessor = 0;
+    for (int i = 0; i < qtdProfessor; i++) {
+        if (listarProfessor[i].ativo == 1 && listarProfessor[i].mesNascimento == mesAtual) {
+            printf("- %s (Data de Nascimento: %02d/%02d/%04d)\n", 
+                   listarProfessor[i].nome, listarProfessor[i].diaNascimento, listarProfessor[i].mesNascimento, listarProfessor[i].anoNascimento);
+            encontrouAniversarianteProfessor = 1;
+        }
+    }
+    if (!encontrouAniversarianteProfessor) {
+        printf("NENHUM PROFESSOR FAZ ANIVERSARIO NESTE MES.\n");
     }
 }

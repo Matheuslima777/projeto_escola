@@ -311,7 +311,9 @@ listarDisciplinaComAlunos(qtdDisciplina,listarDisciplina);
 listarProfessoresOrdemAlfabetica(qtdProfessor,listarProfessor);
               break;
             }case 10:{
-ordenarProfessoresPorDataNascimento(qtdProfessor,listarProfessor);
+ordenarProfessoresPorDataNascimento(qtdProfessor,listarProfessor);break;
+            }case 11:{
+              listarAniversariantesDoMes(qtdAluno, listarAluno,qtdProfessor,listarProfessor);break;
               break;
             }
           }
