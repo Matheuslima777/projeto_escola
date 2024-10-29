@@ -3,18 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-int menuAluno() {
-  int opcao;
-  printf("0-VOLTAR\n");
-  printf("1-CADASTRAR ALUNO\n");
-  printf("2-LISTAR ALUNO\n");
-  printf("3-ATUALIZAR ALUNO\n");
-  printf("4-DELETAR ALUNO\n");
-  scanf("%d", &opcao);
-
-  return opcao;
-}
+/*GERAL*/
 
 int menuGeral() {
   int opcao;
@@ -24,6 +15,41 @@ int menuGeral() {
   printf("2-PROFESSOR\n");
   printf("3-DISCIPLINA\n");
   printf("4-RELATORIOS\n");
+  scanf("%d", &opcao);
+
+  return opcao;
+}
+
+//Só é utilizada para verificar data de nascimento, mas tentei criar algo mais universal
+int validar_data(int dia, int mes, int ano)
+{
+  struct tm tm = {0};
+      tm.tm_mday = dia;
+      tm.tm_mon = mes - 1; // tm_mon é de 0 a 11
+      tm.tm_year = ano - 1900; // tm_year é o número de anos desde 1900
+
+      // Tenta converter a estrutura tm em um tempo calendário
+      time_t t = mktime(&tm);
+
+      // Verifica se a data foi ajustada corretamente
+      if (tm.tm_mday != dia || tm.tm_mon != mes - 1 || tm.tm_year != ano - 1900) {
+          return DATA_INVALIDA; // Data inválida
+      }
+      return DATA_VALIDA; // Data válida
+}
+
+
+/*GERAL*/
+
+
+
+int menuAluno() {
+  int opcao;
+  printf("0-VOLTAR\n");
+  printf("1-CADASTRAR ALUNO\n");
+  printf("2-LISTAR ALUNO\n");
+  printf("3-ATUALIZAR ALUNO\n");
+  printf("4-DELETAR ALUNO\n");
   scanf("%d", &opcao);
 
   return opcao;
@@ -42,6 +68,9 @@ int cadastrarAluno(int qtdAluno, Aluno listarAluno[]) {
     int idade;
     char sexo;
     int i;
+    int matriculaaluno;
+    
+    
 
     printf("DIGITE SEU NOME:\n");
     getchar();
@@ -53,78 +82,109 @@ int cadastrarAluno(int qtdAluno, Aluno listarAluno[]) {
       nome[len - 1] = '\0';
     }
 
+    //recebe a matricula e já verifica se é válida
+    int achoualuno = 0;
+    while (achoualuno == 0) {
+      printf("DIGITE A MATRICULA DO ALUNO:\n");
+      int retorno_verificador_aluno =
+          verificarAluno(qtdAluno, listarAluno, &matriculaaluno);
 
-    printf("DIGITE A MATRICULA:\n");
-    scanf("%d", &matricula);
+      if (retorno_verificador_aluno == ALUNO_EXISTE) {
+        printf("Já existe um aluno com essa matrícula\n");
+        
+      } else if (retorno_verificador_aluno == MATRICULA_ALUNO_INEXISTENTE) {
+        printf("Matricula do aluno é válida\n");
+        achoualuno = 1;
+      }
+    }
+    
+    int cpfvalido = 0;
+    while(cpfvalido == 0){
+      printf("DIGITE O CPF DO ALUNO:(formato: 000.000.000-00)\n");
+      int retorno_cpf = verificarCpfaluno(qtdAluno, listarAluno, cpf);
 
+      if (retorno_cpf == CPF_ALUNO_JA_CADASTRADO) {
+        printf("Já existe um aluno com esse CPF\n");
+      }
+        
+      else if(retorno_cpf == CPF_ALUNO_INVALIDO)
+      {
+        printf("CPF do aluno inválido\n");
+      }
+        
+      else if (retorno_cpf== CPF_ALUNO_VALIDO)
+      {
+        printf("CPF do aluno é válida\n");
+        cpfvalido = 1;
+      }
+    }
 
     printf("DIGITE O SEXO (M/F):\n");
     scanf(" %c", &sexo);
     sexo = toupper(sexo);
 
-    printf("DIGITE SEU CPF (formato: 000.000.000-00):\n");
-    getchar();
-    fgets(cpf, sizeof(cpf), stdin);
-    size_t lenn = strlen(cpf);
-    if (lenn > 0 && cpf[lenn - 1] == '\n') {
-      cpf[lenn - 1] = '\0';
-    }
-
-    // Verificar se o CPF já está cadastrado
-    for (i = 0; i < qtdAluno; i++) {
-      if (strcmp(listarAluno[i].cpf, cpf) == 0) {
-        return CPF_ALUNO_JA_CADASTRADO;
+    int data_certa =0;
+    while(data_certa == 0)
+    {
+      printf("DIGITE SUA DATA DE NASCIMENTO (formato: DD/MM/AAAA):\n");
+      scanf("%d/%d/%d", &diaNascimento, &mesNascimento, &anoNascimento);
+      int retorno_data = validar_data(diaNascimento, mesNascimento, anoNascimento);
+      if(retorno_data == DATA_VALIDA)
+      { 
+        printf("Data válida!\n");
+        data_certa = 1;
       }
+      else if(retorno_data == DATA_INVALIDA)
+        printf("Data inválida!\n");
     }
-
-    printf("DIGITE SUA DATA DE NASCIMENTO (formato: DD/MM/AAAA):\n");
-    scanf("%d/%d/%d", &diaNascimento, &mesNascimento, &anoNascimento);
-
     // Entrada da data atual
-    printf("DIGITE A DATA ATUAL (formato: DD/MM/AAAA):\n");
-    scanf("%d/%d/%d", &diaAtual, &mesAtual, &anoAtual);
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    // Extrai dia, mês e ano
+    diaAtual = tm.tm_mday;
+    mesAtual = tm.tm_mon + 1; // tm_mon é de 0 a 11, então adicionamos 1
+    anoAtual = tm.tm_year + 1900; // tm_year é o número de anos desde 1900
 
     // Calcular idade
     idade = anoAtual - anoNascimento;
 
-    if (matricula < 0) {
-      return MATRICULA_ALUNO_INVALIDA;
-    } else {
-      if (sexo == 'F' || sexo == 'M') {
+    
+    if (sexo == 'F' || sexo == 'M') {
 
-        // nome do aluno
-        strcpy(listarAluno[qtdAluno].nome, nome);
+      // nome do aluno
+      strcpy(listarAluno[qtdAluno].nome, nome);
 
-        // sexo do aluno
-        listarAluno[qtdAluno].sexo = sexo;
+      // sexo do aluno
+      listarAluno[qtdAluno].sexo = sexo;
 
-        // matricula do aluno
-        listarAluno[qtdAluno].matricula = matricula;
+      // matricula do aluno
+      listarAluno[qtdAluno].matricula = matriculaaluno;
 
-        // cpf do aluno
-        strcpy(listarAluno[qtdAluno].cpf, cpf);
+      // cpf do aluno
+      strcpy(listarAluno[qtdAluno].cpf, cpf);
 
-        // data de nascimento do aluno
-        listarAluno[qtdAluno].diaNascimento = diaNascimento;
-        listarAluno[qtdAluno].mesNascimento = mesNascimento;
-        listarAluno[qtdAluno].anoNascimento = anoNascimento;
+      // data de nascimento do aluno
+      listarAluno[qtdAluno].diaNascimento = diaNascimento;
+      listarAluno[qtdAluno].mesNascimento = mesNascimento;
+      listarAluno[qtdAluno].anoNascimento = anoNascimento;
 
-        // cadastrar idade
-        listarAluno[qtdAluno].idade = idade;
+      // cadastrar idade
+      listarAluno[qtdAluno].idade = idade;
 
-        // data que o aluno entrou
-        listarAluno[qtdAluno].diaAtual = diaAtual;
-        listarAluno[qtdAluno].mesAtual = mesAtual;
-        listarAluno[qtdAluno].anoAtual = anoAtual;
+      // data que o aluno entrou
+      listarAluno[qtdAluno].diaAtual = diaAtual;
+      listarAluno[qtdAluno].mesAtual = mesAtual;
+      listarAluno[qtdAluno].anoAtual = anoAtual;
 
-        // marca se o aluno está cadastrado ou não, serve para fazer exclusão
-        // logica
-        listarAluno[qtdAluno].ativo = 1;
+      // marca se o aluno está cadastrado ou não, serve para fazer exclusão
+      // logica
+      listarAluno[qtdAluno].ativo = 1;
 
-        return CAD_ALUNO_SUCESSO;
-      } else {
-        return SEXO_ALUNO_INVALIDO;
-      }
+      return CAD_ALUNO_SUCESSO;
+    }
+    else{
+      return SEXO_ALUNO_INVALIDO;
+      
     }
   }
 }
@@ -144,6 +204,47 @@ int verificarAluno(int qtdAluno, Aluno listarAluno[], int *matriculaaluno) {
     return ALUNO_EXISTE;
   else
     return MATRICULA_ALUNO_INEXISTENTE;
+}
+
+int verificarCpfaluno(int qtdAluno, Aluno listarAluno[], char *cpf){
+    getchar();
+    scanf("%14s", cpf);
+  
+    size_t tamanho_cpf = strlen(cpf);
+    // Verifica se o comprimento do CPF é 14
+    if (tamanho_cpf != 14) {
+      printf("Este CPF tem tamanho inválido\n");
+      printf("seu tamanho de CPF atual é esse:%zu\nDigite corretamente\n", tamanho_cpf);
+      return CPF_ALUNO_INVALIDO;
+    }
+    // Verifica se os caracteres estão nas posições corretas
+    for (int i = 0; i < 14; i++) {
+        if (i == 3 || i == 7) {
+            if (cpf[i] != '.') {
+                printf("Erro na posição %d: esperado '.', encontrado '%c'\n", i, cpf[i]);
+                return CPF_ALUNO_INVALIDO;
+            }
+        } else if (i == 11) {
+            if (cpf[i] != '-') {
+                printf("Erro na posição %d: esperado '-', encontrado '%c'\n", i, cpf[i]);
+                return CPF_ALUNO_INVALIDO;
+            }
+        } else {
+            if (!isdigit(cpf[i])) {
+                printf("Erro na posição %d: esperado dígito, encontrado '%c'\n", i, cpf[i]);
+                return CPF_ALUNO_INVALIDO;
+            }
+        }
+    }
+  // Verificar se o CPF já está cadastrado
+    for (int i = 0; i < qtdAluno; i++) {
+      if (strcmp(listarAluno[i].cpf, cpf) == 0) {
+        printf("Este CPF já está cadastrado no sistema\n");
+        return CPF_ALUNO_JA_CADASTRADO;
+      }
+    }
+
+    return CPF_ALUNO_VALIDO;
 }
 
 void listarrAlunos(int qtdAluno, Aluno listarAluno[]) {
