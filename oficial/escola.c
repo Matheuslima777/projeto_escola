@@ -314,7 +314,12 @@ listarProfessoresOrdemAlfabetica(qtdProfessor,listarProfessor);
 ordenarProfessoresPorDataNascimento(qtdProfessor,listarProfessor);break;
             }case 11:{
               listarAniversariantesDoMes(qtdAluno, listarAluno,qtdProfessor,listarProfessor);break;
-              break;
+            }case 12:{
+              listarDisciplinasExcedendo40Alunos( qtdDisciplina,  listarDisciplina);break;
+            }case 13:{
+              listarAlunosMenosDeTresDisciplinas(qtdAluno, listarAluno);break;
+            }case 14:{
+              PessoasPorSubstring( qtdAluno,  listarAluno,  qtdProfessor,  listarProfessor);
             }
           }
         }

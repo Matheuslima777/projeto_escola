@@ -32,6 +32,7 @@ int diaAtual, mesAtual, anoAtual;
 char nome[20];
 char sexo;
 int ativo;
+int qtdDisciplina;
 }Aluno;
 
 

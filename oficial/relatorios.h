@@ -21,6 +21,9 @@ void listarProfessoresPorSexo(int qtdProfessor, Professor listarProfessor[]);
 void listarProfessoresOrdemAlfabetica(int qtdProfessor, Professor listarProfessor[]);
 void ordenarProfessoresPorDataNascimento(int qtdProfessor, Professor listarProfessor[]);
 void listarAniversariantesDoMes(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Professor listarProfessor[]);
+void listarDisciplinasExcedendo40Alunos(int qtdDisciplina, Disciplina listarDisciplina[]);
+ void listarAlunosMenosDeTresDisciplinas(int qtdAluno, Aluno listarAluno[]);
+void PessoasPorSubstring(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Professor listarProfessor[]);
 
 
 #endif
