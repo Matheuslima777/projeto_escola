@@ -259,10 +259,10 @@ void listarrAlunos(int qtdAluno, Aluno listarAluno[]) {
         printf("NOME:%s\n", listarAluno[i].nome);
         printf("CPF: %s\n", listarAluno[i].cpf);
         printf("DATA DE NASCIMENTO: %d/%d/%d\n", listarAluno[i].diaNascimento,
-               listarAluno[i].mesNascimento, listarAluno[i].anoNascimento);
+              listarAluno[i].mesNascimento, listarAluno[i].anoNascimento);
         printf("IDADE: %d\n", listarAluno[i].idade);
         printf("DATA DE CADASTRO: %d/%d/%d\n", listarAluno[i].diaAtual,
-               listarAluno[i].mesAtual, listarAluno[i].anoAtual);
+              listarAluno[i].mesAtual, listarAluno[i].anoAtual);
         printf("\n");
       }
     }
@@ -292,6 +292,20 @@ int atualizarAluno(int qtdAluno, Aluno listarAluno[]) {
 
         printf("DIGITE A NOVA MATRICULA:\n");
         scanf("%d", &novaMatricula);
+        int achoualuno = 0;
+        while (achoualuno == 0) {
+          printf("DIGITE A MATRICULA DO ALUNO:\n");
+          int retorno_verificador_aluno =
+              verificarAluno(qtdAluno, listarAluno, &novamatricula);
+
+          if (retorno_verificador_aluno == ALUNO_EXISTE) {
+            printf("Já existe um aluno com essa matrícula\n");
+            
+          } else if (retorno_verificador_aluno == MATRICULA_ALUNO_INEXISTENTE) {
+            printf("Matricula do aluno é válida\n");
+            achoualuno = 1;
+          }
+        }
 
         printf("NOME:\n");
         getchar();
