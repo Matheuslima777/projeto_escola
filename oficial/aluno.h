@@ -17,6 +17,10 @@
 #define MATRICULA_ALUNO_INDISPONIVEL -8
 #define CPF_ALUNO_JA_CADASTRADO -9
 #define ALUNO_EXISTE -10
+#define CPF_ALUNO_INVALIDO -11
+#define CPF_ALUNO_VALIDO -12
+#define DATA_INVALIDA -13
+#define DATA_VALIDA -14
 
 typedef struct alu
 {
@@ -40,6 +44,7 @@ int atualizarAluno(int qtdAluno, Aluno listarAluno[]);
 int excluirAluno(int qtdAluno, Aluno listarAluno[]);
 void listarrAlunos(int qtdAluno, Aluno listarAluno[]);
 int verificarAluno(int qtdAluno, Aluno listarAluno[], int * matriculaaluno);
+int verificarCpfaluno(int qtdAluno, Aluno listarAluno[], char *cpf);
 
 /* ========================================================================================
   FINAL ALUNO
