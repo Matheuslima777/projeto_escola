@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include "relatorios.h"
 #include <stdio.h>
+#include <time.h>
 
 int menuRelatorio() {
   int opcao;
@@ -283,9 +284,13 @@ void ordenarProfessoresPorDataNascimento(int qtdProfessor, Professor listarProfe
 void listarAniversariantesDoMes(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Professor listarProfessor[]) {
     int diaAtual, mesAtual, anoAtual;
 
-    // Perguntar a data atual ao usuário
-    printf("INFORME A DATA ATUAL (DD MM AAAA): ");
-    scanf("%d/%d/%d", &diaAtual, &mesAtual, &anoAtual);
+    // Entrada da data atual
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    // Extrai dia, mês e ano
+    diaAtual = tm.tm_mday;
+    mesAtual = tm.tm_mon + 1; // tm_mon é de 0 a 11, então adicionamos 1
+    anoAtual = tm.tm_year + 1900; // tm_year é o número de anos desde 1900
 
     printf("\nANIVERSARIANTES DO MÊS %d:\n\n", mesAtual);
 
@@ -358,12 +363,12 @@ void listarAlunosMenosDeTresDisciplinas(int qtdAluno, Aluno listarAluno[]) {
 
 void PessoasPorSubstring(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Professor listarProfessor[]) {
     char busca[4];
-    
+
     printf("INFORME UMA STRING DE BUSCA COM  TRES LETRAS: ");
     getchar();
     fgets(busca, sizeof(busca), stdin);
     busca[strcspn(busca, "\n")] = '\0';
-    
+
 
     if (strlen(busca) != 3) {
         printf("ERRO: A STRING DE BUSCA DEVE CONTER EXATAMENTE TRES LETRAS.\n");
