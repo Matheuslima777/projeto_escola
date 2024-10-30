@@ -140,7 +140,7 @@ int cadastrarProfessor(int qtdProfessor, Professor listarProfessor[]) {
         cpfvalido = 1;
       }
     }
-    
+
     int data_certa =0;
     while(data_certa == 0)
     {
@@ -216,7 +216,7 @@ void listarrProfessor(int qtdProfessor, Professor listarProfessor[]) {
     for (int i = 0; i < qtdProfessor; i++) {
       if (listarProfessor[i].ativo == 1) {
         printf("PROFESSOR %d:\n", i);
-        printf("SEXO: %c", listarProfessor[i].sexo);
+        printf("SEXO: %c\n", listarProfessor[i].sexo);
         printf("MATRICULA: %d\n", listarProfessor[i].matricula);
         printf("NOME:%s\n", listarProfessor[i].nome);
         printf("CPF: %s\n", listarProfessor[i].cpf);
@@ -261,7 +261,7 @@ int atualizarProfessor(int qtdProfessor, Professor listarProfessor[])
           int newanoNascimento;
           int newmesNascimento;
           char newSexo;
-          
+
           // verificando se o professor existe
           int achouprofnov = 0;
           while (achouprofnov == 0) {
@@ -274,7 +274,7 @@ int atualizarProfessor(int qtdProfessor, Professor listarProfessor[])
               achouprofnov = 1;
             }
           }
-          
+
           printf("NOVO NOME:\n");
           getchar();
           fgets(novoNome, sizeof(novoNome), stdin);
@@ -301,8 +301,8 @@ int atualizarProfessor(int qtdProfessor, Professor listarProfessor[])
 
           printf("NOVO SEXO:\n");
           scanf(" %c", &newSexo);
-          
-          
+
+
           listarProfessor[i].matricula = novaMatricula;
           strcpy(listarProfessor[i].nome, novoNome);
           listarProfessor[i].diaNascimento = newdiaNascimento;

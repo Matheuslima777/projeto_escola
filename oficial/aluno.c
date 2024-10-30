@@ -95,30 +95,28 @@ int cadastrarAluno(int qtdAluno, Aluno listarAluno[]) {
 
       if (retorno_verificador_aluno == ALUNO_EXISTE) {
         printf("Já existe um aluno com essa matrícula\n");
-
       } else if (retorno_verificador_aluno == MATRICULA_ALUNO_INEXISTENTE) {
         printf("Matricula do aluno é válida\n");
         achoualuno = 1;
+      }else if(retorno_verificador_aluno!= ALUNO_EXISTE && retorno_verificador_aluno!= MATRICULA_ALUNO_INEXISTENTE){
+        printf("MATRICULA INVALIDA\n");
       }
     }
-
+getchar();
     int cpfvalido = 0;
     while(cpfvalido == 0){
       printf("DIGITE O CPF DO ALUNO:(formato: 000.000.000-00)\n");
       int retorno_cpf = verificarCpfaluno(qtdAluno, listarAluno, cpf);
+      
 
       if (retorno_cpf == CPF_ALUNO_JA_CADASTRADO) {
-        printf("Já existe um aluno com esse CPF\n");
-      }
-
-      else if(retorno_cpf == CPF_ALUNO_INVALIDO)
+        printf("JA EXISTE UM ALUNO COM ESSE CPF\n");
+      }else if(retorno_cpf == CPF_ALUNO_INVALIDO)
       {
-        printf("CPF do aluno inválido\n");
-      }
-
-      else if (retorno_cpf== CPF_ALUNO_VALIDO)
+        printf("CPF DO ALUNO INVALIDO\n");
+      }else if (retorno_cpf== CPF_ALUNO_VALIDO)
       {
-        printf("CPF do aluno é válida\n");
+        printf("CPF DO ALUNO É VALIDO\n");
         cpfvalido = 1;
       }
     }
@@ -221,8 +219,8 @@ int verificarCpfaluno(int qtdAluno, Aluno listarAluno[], char *cpf){
 
   size_t tamanho_cpf = strlen(cpf);
     if (tamanho_cpf != 14) {
-      printf("Este CPF tem tamanho inválido\n");
-      printf("seu tamanho de CPF atual é esse:%zu\nDigite corretamente\n", tamanho_cpf);
+      printf("ESTE CPF TEM TAMANHO INVALIDO\n");
+      printf("SEU TAMANHO DE CPF ATUAL É ESSE:%zu\n DIGITE CORRETAMENTE:\n", tamanho_cpf);
       return CPF_ALUNO_INVALIDO;
     }
     // Verifica se os caracteres estão nas posições corretas
@@ -360,7 +358,7 @@ int atualizarAluno(int qtdAluno, Aluno listarAluno[]) {
             else if(retorno_data == DATA_INVALIDA)
               printf("Data inválida!\n");
           }
-          
+
           printf("SEXO (M/F):\n");
           scanf(" %c", &newSexo);
 
@@ -397,7 +395,7 @@ int excluirAluno(int qtdAluno, Aluno listarAluno[])
   int achoualuno = 0;
   while (achoualuno == 0)
   {
-    printf("DIGITE A NOVA MATRICULA DO ALUNO:\n");
+    printf("DIGITE A MATRICULA DO ALUNO:\n");
     int retorno_verificador_aluno = verificarAluno(qtdAluno, listarAluno, &matricula);
     if (retorno_verificador_aluno == ALUNO_EXISTE) {
       for (int i = 0; i < qtdAluno; i++)

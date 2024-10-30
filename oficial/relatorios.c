@@ -112,14 +112,14 @@ void listarDisciplinaComAlunos(int qtdDisciplina, Disciplina listarDisciplina[])
             if (listarDisciplina[i].qtdalunosdisciplina > 0) {
                 printf("ALUNOS MATRICULADOS:\n");
                 for (int j = 0; j < listarDisciplina[i].qtdalunosdisciplina; j++) {
-                    printf(" NOME: %s\n", listarDisciplina[i].listaALNdisciplina[j].nome);
-                    printf("  MATRICULA: %d\n", listarDisciplina[i].listaALNdisciplina[j].matricula);
-                    printf("  IDADE: %d\n", listarDisciplina[i].listaALNdisciplina[j].idade);
-                    printf("  SEXO: %c\n", listarDisciplina[i].listaALNdisciplina[j].sexo);
+                    printf("NOME: %s\n", listarDisciplina[i].listaALNdisciplina[j].nome);
+                    printf("MATRICULA: %d\n", listarDisciplina[i].listaALNdisciplina[j].matricula);
+                    printf("IDADE: %d\n", listarDisciplina[i].listaALNdisciplina[j].idade);
+                    printf("SEXO: %c\n\n", listarDisciplina[i].listaALNdisciplina[j].sexo);
                     printf("\n");
                 }
             } else {
-                printf("NENHUM ALUNO MATRICULADO NESTA DISCIPLINA.\n");
+                printf("NENHUM ALUNO MATRICULADO NESTA DISCIPLINA.\n\n");
             }
             return;
         }
@@ -322,12 +322,13 @@ void listarAniversariantesDoMes(int qtdAluno, Aluno listarAluno[], int qtdProfes
         printf("NENHUM PROFESSOR FAZ ANIVERSARIO NESTE MES.\n");
     }
 }
+
 void listarDisciplinasExcedendo40Alunos(int qtdDisciplina, Disciplina listarDisciplina[]) {
     printf("LISTA DE DISCIPLINAS COM MAIS DE 40 ALUNOS:\n");
     int encontrou = 0; 
 
     for (int i = 0; i < qtdDisciplina; i++) {
-        if (listarDisciplina[i].ativo == 1 && listarDisciplina[i].qtdalunosdisciplina > 2) {
+        if (listarDisciplina[i].ativo == 1 && listarDisciplina[i].qtdalunosdisciplina > 40) {
             printf("DISCIPLINA: %s\n", listarDisciplina[i].nome);
             printf("CODIGO: %d\n", listarDisciplina[i].coddisciplina);
             printf("QUANTIDADE DE ALUNOS: %d\n", listarDisciplina[i].qtdalunosdisciplina);
@@ -363,43 +364,6 @@ void listarAlunosMenosDeTresDisciplinas(int qtdAluno, Aluno listarAluno[]) {
 
 void PessoasPorSubstring(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Professor listarProfessor[]) {
     char busca[4];
-
-    printf("INFORME UMA STRING DE BUSCA COM  TRES LETRAS: ");
-    getchar();
-    fgets(busca, sizeof(busca), stdin);
-    busca[strcspn(busca, "\n")] = '\0';
-
-
-    if (strlen(busca) != 3) {
-        printf("ERRO: A STRING DE BUSCA DEVE CONTER EXATAMENTE TRES LETRAS.\n");
-        return;
-    }
-
-    printf("PESSOAS ENCONTRADAS QUE CONTÊM A STRING '%s' NO NOME:\n", busca);
-    int encontrou = 0; // Variável para marcar se encontrou ao menos uma pessoa
-
-    // Função de busca em cada nome
-    for (int i = 0; i < qtdAluno; i++) {
-        if (listarAluno[i].ativo == 1 && strstr(listarAluno[i].nome, busca) != NULL) {
-            printf("ALUNO: %s (Matrícula: %d)\n", listarAluno[i].nome, listarAluno[i].matricula);
-            encontrou = 1;
-        }
-    }
-
-    for (int i = 0; i < qtdProfessor; i++) {
-        if (listarProfessor[i].ativo == 1 && strstr(listarProfessor[i].nome, busca) != NULL) {
-            printf("PROFESSOR: %s (MATRICULA: %d)\n", listarProfessor[i].nome, listarProfessor[i].matricula);
-            encontrou = 1;
-        }
-    }
-
-    if (!encontrou) {
-        printf("NENHUMA PESSOA ENCONTRADA COM A STRING '%s' NO NOME.\n", busca);
-    }
-}
-
-void pessoasPorSubstring(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Professor listarProfessor[]) {
-    char busca[4];
     printf("Informe uma string de busca com exatamente três letras: ");
     getchar();
     fgets(busca, sizeof(busca), stdin);
@@ -415,52 +379,41 @@ void pessoasPorSubstring(int qtdAluno, Aluno listarAluno[], int qtdProfessor, Pr
         return;
     }
 
+    printf("PESSOAS ENCONTRADAS QUE CONTÊM AS LETRAS '%s' NO NOME:\n\n", busca);
     int encontrou = 0;
 
-    // Função de busca em cada nome para alunos
+    // Função de busca para alunos
     for (int i = 0; i < qtdAluno; i++) {
         if (listarAluno[i].ativo == 1) {
-            int encontrouLetras = 0; // Contador para letras encontradas
+            // Copia o nome do aluno para uma variável temporária
+            char nomeTemp[50];
+            strcpy(nomeTemp, listarAluno[i].nome);
 
-            // Varre o nome e verifica a presença das três letras
-            char *pos = listarAluno[i].nome;
-            for (int j = 0; j < 3; j++) {
-                pos = strchr(pos, busca[j]);
-                if (pos != NULL) {
-                    encontrouLetras++;
-                    pos++; // Avança a posição para continuar a busca
-                } else {
-                    break; // Sai do loop se não encontrar uma das letras
-                }
-            }
+            // Verifica cada uma das letras da busca
+            char *pos1 = strstr(nomeTemp, (char[]){busca[0], '\0'});
+            char *pos2 = pos1 ? strstr(pos1 + 1, (char[]){busca[1], '\0'}) : NULL;
+            char *pos3 = pos2 ? strstr(pos2 + 1, (char[]){busca[2], '\0'}) : NULL;
 
-            // Verifica se todas as três letras foram encontradas
-            if (encontrouLetras == 3) {
+            if (pos1 && pos2 && pos3) {
                 printf("Aluno: %s (Matrícula: %d)\n", listarAluno[i].nome, listarAluno[i].matricula);
                 encontrou = 1;
             }
         }
     }
 
-    // Função de busca em cada nome para professores
+    // Função de busca para professores
     for (int i = 0; i < qtdProfessor; i++) {
         if (listarProfessor[i].ativo == 1) {
-            int encontrouLetras = 0;
+            // Copia o nome do professor para uma variável temporária
+            char nomeTemp[50];
+            strcpy(nomeTemp, listarProfessor[i].nome);
 
-            // Varre o nome e verifica a presença das três letras
-            char *pos = listarProfessor[i].nome;
-            for (int j = 0; j < 3; j++) {
-                pos = strchr(pos, busca[j]);
-                if (pos != NULL) {
-                    encontrouLetras++;
-                    pos++;
-                } else {
-                    break;
-                }
-            }
+            // Verifica cada uma das letras da busca
+            char *pos1 = strstr(nomeTemp, (char[]){busca[0], '\0'});
+            char *pos2 = pos1 ? strstr(pos1 + 1, (char[]){busca[1], '\0'}) : NULL;
+            char *pos3 = pos2 ? strstr(pos2 + 1, (char[]){busca[2], '\0'}) : NULL;
 
-            // Verifica se todas as três letras foram encontradas
-            if (encontrouLetras == 3) {
+            if (pos1 && pos2 && pos3) {
                 printf("Professor: %s (Matrícula: %d)\n", listarProfessor[i].nome, listarProfessor[i].matricula);
                 encontrou = 1;
             }

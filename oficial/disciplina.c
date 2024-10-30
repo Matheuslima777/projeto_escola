@@ -202,6 +202,7 @@ int cadastraralunodisciplina(int qtdDisciplina, Disciplina listarDisciplina[], i
 strcpy(listarDisciplina[i].listaALNdisciplina[listarDisciplina[i].qtdalunosdisciplina].nome,listarAluno[j].nome);
 listarDisciplina[i].listaALNdisciplina[listarDisciplina[i].qtdalunosdisciplina].idade=listarAluno[j].idade;
 listarDisciplina[i].listaALNdisciplina[listarDisciplina[i].qtdalunosdisciplina].sexo=listarAluno[j].sexo;
+listarDisciplina[i].listaALNdisciplina[listarDisciplina[i].qtdalunosdisciplina].qtdDisciplina=listarAluno[j].qtdDisciplina++;
           listarDisciplina[i].qtdalunosdisciplina++;
         }
       }
@@ -280,7 +281,7 @@ int atualizarDisciplina(int qtdDisciplina, Disciplina listarDisciplina[], int qt
           break;
         }
       }
-      
+
     }
     else if(retorno_verificador_disciplina == COD_DISCIPLINA_INEXISTENTE)
     {
