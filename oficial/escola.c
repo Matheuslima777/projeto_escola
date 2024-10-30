@@ -281,37 +281,37 @@ int main(void) {
           opcaoRelatorio = menuRelatorio();
           switch(opcaoRelatorio){
             case 0:{
-              sairRelatorio = 1;
-              break;
+            sairRelatorio = 1;
+            break;
             }case 1:{
-              listarAlunosSimples(qtdAluno, listarAluno);
-              break;
+            listarAlunosSimples(qtdAluno, listarAluno);
+            break;
             }case 2:{
-                listarProfessoresSimples(qtdProfessor, listarProfessor);
-                break;
+            listarProfessoresSimples(qtdProfessor, listarProfessor);
+            break;
             }case 3:{
-listarDisciplinasSimples(qtdDisciplina,listarDisciplina,  qtdProfessor, listarProfessor);
-                break;
+            listarDisciplinasSimples(qtdDisciplina,listarDisciplina,  qtdProfessor, listarProfessor);
+            break;
             }case 4:{      
-listarDisciplinaComAlunos(qtdDisciplina,listarDisciplina);
-              break;
+            listarDisciplinaComAlunos(qtdDisciplina,listarDisciplina);
+            break;
             }case 5:{
-                 listarAlunosPorSexo(qtdAluno, listarAluno);
-              break;
+            listarAlunosPorSexo(qtdAluno, listarAluno);
+            break;
             }case 6:{
-               listarAlunosOrdemAlfabetica(qtdAluno, listarAluno);
-              break;
+            listarAlunosOrdemAlfabetica(qtdAluno, listarAluno);
+            break;
             }case 7:{
-              ordenarAlunosPorDataNascimento(qtdAluno, listarAluno);
-              break;
+            ordenarAlunosPorDataNascimento(qtdAluno, listarAluno);
+            break;
             }case 8:{
-              listarProfessoresPorSexo(qtdProfessor, listarProfessor);
-              break;
+            listarProfessoresPorSexo(qtdProfessor, listarProfessor);
+            break;
             }case 9:{
-listarProfessoresOrdemAlfabetica(qtdProfessor,listarProfessor);
+            listarProfessoresOrdemAlfabetica(qtdProfessor,listarProfessor);
               break;
             }case 10:{
-ordenarProfessoresPorDataNascimento(qtdProfessor,listarProfessor);break;
+            ordenarProfessoresPorDataNascimento(qtdProfessor,listarProfessor);break;
             }case 11:{
               listarAniversariantesDoMes(qtdAluno, listarAluno,qtdProfessor,listarProfessor);break;
             }case 12:{
