@@ -38,7 +38,7 @@ int qtdDisciplina;
 
 //prototipos das funções aluno
 int menuGeral();
-int menuAluno();   
+int menuAluno();
 int cadastrarAluno(int qtdAluno, Aluno listarAluno[]);
 void listarrAlunos(int qtdAluno, Aluno listarAluno[]);
 int atualizarAluno(int qtdAluno, Aluno listarAluno[]);
