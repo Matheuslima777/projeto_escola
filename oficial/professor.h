@@ -17,6 +17,8 @@
 #define MATRICULA_PROFESSOR_INDISPONIVEL -8
 #define CPF_PROFESSOR_JA_CADASTRADO -9
 #define PROFESSOR_EXISTE -10
+#define CPF_PROFESSOR_INVALIDO -11
+#define CPF_PROFESSOR_VALIDO -12
 
 typedef struct prof {
   int matricula;
