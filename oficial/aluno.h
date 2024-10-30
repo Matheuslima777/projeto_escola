@@ -46,6 +46,8 @@ int excluirAluno(int qtdAluno, Aluno listarAluno[]);
 void listarrAlunos(int qtdAluno, Aluno listarAluno[]);
 int verificarAluno(int qtdAluno, Aluno listarAluno[], int * matriculaaluno);
 int verificarCpfaluno(int qtdAluno, Aluno listarAluno[], char *cpf);
+void limpar_buffer();
+int validar_data(int dia, int mes, int ano);
 
 /* ========================================================================================
   FINAL ALUNO
