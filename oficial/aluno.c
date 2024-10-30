@@ -38,6 +38,10 @@ int validar_data(int dia, int mes, int ano)
       return DATA_VALIDA; // Data válida
 }
 
+void limpar_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 
 /*GERAL*/
 
@@ -207,11 +211,15 @@ int verificarAluno(int qtdAluno, Aluno listarAluno[], int *matriculaaluno) {
 }
 
 int verificarCpfaluno(int qtdAluno, Aluno listarAluno[], char *cpf){
-    getchar();
-    scanf("%14s", cpf);
+  if (fgets(cpf, 15, stdin) == NULL) {
+    printf("Erro ao ler o CPF.\n");
+    return CPF_ALUNO_INVALIDO;
+  }
 
-    size_t tamanho_cpf = strlen(cpf);
-    // Verifica se o comprimento do CPF é 14
+  // Remove o caractere de nova linha se presente
+  cpf[strcspn(cpf, "\n")] = 0;
+
+  size_t tamanho_cpf = strlen(cpf);
     if (tamanho_cpf != 14) {
       printf("Este CPF tem tamanho inválido\n");
       printf("seu tamanho de CPF atual é esse:%zu\nDigite corretamente\n", tamanho_cpf);
@@ -317,7 +325,8 @@ int atualizarAluno(int qtdAluno, Aluno listarAluno[]) {
           }
 
           int cpfvalido = 0;
-          while(cpfvalido == 0){
+          while(cpfvalido == 0)
+          {
             printf("DIGITE O NOVO CPF DO ALUNO:(formato: 000.000.000-00)\n");
             int retorno_cpf = verificarCpfaluno(qtdAluno, listarAluno, novoCpf);
 
@@ -337,10 +346,11 @@ int atualizarAluno(int qtdAluno, Aluno listarAluno[]) {
             }
           }
 
-          int data_certa =0;
+          int data_certa = 0;
           while(data_certa == 0)
           {
             printf("DIGITE SUA DATA DE NASCIMENTO NOVA(formato: DD/MM/AAAA):\n");
+            scanf("%d/%d/%d", &newdiaNascimento, &newmesNascimento, &newanoNascimento);
             int retorno_data = validar_data(newdiaNascimento, newmesNascimento, newanoNascimento);
             if(retorno_data == DATA_VALIDA)
             { 
@@ -364,6 +374,7 @@ int atualizarAluno(int qtdAluno, Aluno listarAluno[]) {
           listarAluno[i].mesNascimento = newmesNascimento;
           listarAluno[i].anoNascimento = newanoNascimento;
           listarAluno[i].sexo = newSexo;
+          achoualuno = 1;
           break;
         }
       }
