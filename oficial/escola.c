@@ -1,16 +1,14 @@
-#include "aluno.h"
-#include "disciplina.h"
-#include "professor.h"
-#include "relatorios.h"
+//caso tente compilar pelo vscode, lembrar de alterar os includes para ".c" ao invés de ".h"
+//caso rodar no linux ou replit utilizar os includes dos arquivos com o .h
+
+#include "aluno.c"  //alteravel
+#include "disciplina.c" //alteravel
+#include "professor.c" //alteravel
+#include "relatorios.c" // alteravel
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// utilizar um gerador automatico de matriculas
-// modularizar
-// novos atributos na struct
-// mais validações
 
 int main(void) {
 
